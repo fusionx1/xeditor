@@ -1,0 +1,58 @@
+name = Xeditor
+description = Bringing Drupal content authoring to the finest level.
+version = "7.x-1.0-dev"
+core = 7.x
+php = 5.3
+
+; The distribution_name property is used in the installer and other places as
+; a label for the software being installed.
+distribution_name = Xeditor
+
+; The exclusive flag auto-selects the profile during installation, if there
+; are no other exclusive ones.
+exclusive = TRUE
+
+; Required modules (Core)
+; Copy/pasted from standard.info
+dependencies[] = block
+dependencies[] = color
+dependencies[] = comment
+dependencies[] = contextual
+dependencies[] = dblog
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = help
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = rdf
+dependencies[] = search
+dependencies[] = shortcut
+dependencies[] = taxonomy
+
+; Required modules (Contrib)
+dependencies[] = breakpoints
+dependencies[] = entity
+dependencies[] = jquery_update
+dependencies[] = json2
+dependencies[] = libraries
+dependencies[] = module_filter
+dependencies[] = page_manager
+dependencies[] = panels
+dependencies[] = panels_ipe
+dependencies[] = views
+dependencies[] = views_ui
+dependencies[] = simplified_menu_admin
+
+; Required projects
+dependencies[] = ckeditor
+dependencies[] = edit
+dependencies[] = gridbuilder
+dependencies[] = layout
+dependencies[] = navbar
+dependencies[] = responsive_preview
+dependencies[] = spark_demo
+
