@@ -1,0 +1,13 @@
+name = Spark Demo
+description = Demo content for the Spark distribution.
+core = 7.x
+package = Spark
+dependencies[] = every_field
+dependencies[] = panels
+
+; Information added by Drupal.org packaging script on 2014-01-24
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "spark"
+datestamp = "1390584806"
+
