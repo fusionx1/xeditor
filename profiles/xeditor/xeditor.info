@@ -46,6 +46,7 @@ dependencies[] = panels_ipe
 dependencies[] = views
 dependencies[] = views_ui
 dependencies[] = simplified_menu_admin
+dependencies[] = draggableviews
 
 ; Required projects
 dependencies[] = ckeditor
