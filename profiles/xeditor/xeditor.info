@@ -55,5 +55,6 @@ dependencies[] = layout
 dependencies[] = navbar
 dependencies[] = responsive_preview
 dependencies[] = diff
+dependencies[] = insert
 dependencies[] = xeditor_demo
 dependencies[] = xeditor_core
