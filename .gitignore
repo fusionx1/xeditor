@@ -6,4 +6,6 @@ sites/*/files
 sites/*/private
 
 #Ignore development directory
-sites/all/modules/development
+sites/all/modules/*
+sites/all/libraries
+sites/all/themes
