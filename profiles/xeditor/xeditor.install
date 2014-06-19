@@ -223,7 +223,8 @@ function xeditor_install() {
     rdf_mapping_save($rdf_mapping);
   }
   
-  // Default for "Article".
+  // Default for "Article". 
+  // Set the default node options.
   variable_set('node_options_article', array('status', 'promote', 'revision'));
 
   // Default "Basic page" to not be promoted and have comments disabled.
