@@ -1,4 +1,4 @@
-name = Xeditor
+name = Xeditor Core
 description = Awesome Drupal editor
 core = 7.x
 package = XEditor

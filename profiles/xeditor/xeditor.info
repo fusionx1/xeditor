@@ -1,4 +1,4 @@
-name = Xeditor
+name = xEditor
 description = Bringing Drupal content authoring to the finest level.
 version = "7.x-1.0-dev"
 core = 7.x
@@ -6,7 +6,7 @@ php = 5.3
 
 ; The distribution_name property is used in the installer and other places as
 ; a label for the software being installed.
-distribution_name = Xeditor
+distribution_name = xeditor
 
 ; The exclusive flag auto-selects the profile during installation, if there
 ; are no other exclusive ones.
@@ -59,3 +59,4 @@ dependencies[] = diff
 dependencies[] = insert
 dependencies[] = xeditor_demo
 dependencies[] = xeditor_core
+dependencies[] = dragndrop_upload

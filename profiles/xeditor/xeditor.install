@@ -14,6 +14,8 @@
 function xeditor_install() {
   theme_enable(array('responsive_bartik'));
   variable_set('theme_default', 'responsive_bartik');
+  // Set site name.
+  variable_get('site_name', "xEditor | Awesome Drupal Editor");
 
   // Add text formats.
   $filtered_html_format = array(
