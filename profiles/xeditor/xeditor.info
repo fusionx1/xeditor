@@ -60,3 +60,5 @@ dependencies[] = insert
 dependencies[] = xeditor_demo
 dependencies[] = xeditor_core
 dependencies[] = dragndrop_upload
+dependencies[] = dragndrop_upload_file
+dependencies[] = dragndrop_upload_image
