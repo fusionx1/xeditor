@@ -1,0 +1,11 @@
+/**
+ * xEditor styling.
+ */
+.node-form .droppable,
+.node-form div.image-widget-data {
+  float: none;
+}
+
+.node-form .droppable.dropped {
+  border: none;
+}
