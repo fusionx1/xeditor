@@ -59,6 +59,10 @@ dependencies[] = diff
 dependencies[] = insert
 dependencies[] = xeditor_demo
 dependencies[] = xeditor_core
+
+; Required Media modules
+dependencies[] = video
 dependencies[] = dragndrop_upload
 dependencies[] = dragndrop_upload_file
 dependencies[] = dragndrop_upload_image
+
