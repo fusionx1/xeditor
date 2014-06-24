@@ -338,7 +338,9 @@ function xeditor_install() {
     ),
 
     'widget' => array(
-      'type' => 'image_image',
+      // Set widget type. Options are "image_image"
+      // and "dragndrop_upload_image".
+      'type' => 'dragndrop_upload_image',
       'settings' => array(
         'progress_indicator' => 'throbber',
         'preview_image_style' => 'thumbnail',
