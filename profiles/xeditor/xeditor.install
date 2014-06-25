@@ -421,8 +421,7 @@ function xeditor_install() {
   $node->type = 'page';
   $node->status = 1;
   $node->title = $t('About Us');
-  $node->body['und'][0]['value'] = $t('<p>X-Team is a global development team of 100+ carefully chosen specialists. Whether you need help scaling your team or building a new one, X-Team is here to help you build the future.</p>
-  <p>It is indeed that the traffic of a web site lies primarily on its available contents that\'s why enhancing the user experience of content creators is a must. Content management is a bit cumbersome for people who are new to Drupal, that is, the process of creating, editing, and publishing new contents is complicated which consume extra effort to the author. Xeditor is created to alleviate the discomfort and to make content authoring easier, more fun, and exciting than ever.</p>');
+  $node->body['und'][0]['value'] = '<p>' . $t('X-Team is a global development team of 100+ carefully chosen specialists. Whether you need help scaling your team or building a new one, X-Team is here to help you build the future.') . '</p><p>' . $t('It is indeed that the traffic of a web site lies primarily on its available contents that\'s why enhancing the user experience of content creators is a must. Content management is a bit cumbersome for people who are new to Drupal, that is, the process of creating, editing, and publishing new contents is complicated which consume extra effort to the author. Xeditor is created to alleviate the discomfort and to make content authoring easier, more fun, and exciting than ever.') . '</p>';
   $node->body['und'][0]['format'] = 'filtered_html';
   $node->menu = array (
     'enabled' => 1,
