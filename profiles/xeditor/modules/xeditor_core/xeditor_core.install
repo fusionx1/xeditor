@@ -26,5 +26,4 @@ function xeditor_core_install() {
     'insert_width' => '',
   );
   field_update_instance($field_info);
-  debug($field_info, NULL, TRUE);
 }
