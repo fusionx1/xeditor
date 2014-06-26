@@ -58,9 +58,9 @@ function xeditor_demo_install() {
   $node->every_field_text['und'][0]['value'] = $t('A text field.');
   $node->every_field_text_long['und'][0]['value'] = $t('Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.
 
-Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions.
+  Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions.
 
-Completely synergize resource sucking relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.');
+  Completely synergize resource sucking relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.');
 
   // Taxonomy.
   $node->every_field_term_reference['und'] = array(
@@ -98,5 +98,5 @@ Completely synergize resource sucking relationships via premier niche markets. P
 function xeditor_demo_uninstall() {
   // Remove the sample content type and content.
   // @todo: Figure out how to get this to work.
-  //drupal_uninstall_modules(array('every_field'));
+  drupal_uninstall_modules(array('every_field'));
 }
