@@ -1,0 +1,30 @@
+<?php
+/**
+ * @file
+ * Install file for Xeditor core module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function xeditor_core_install() {
+  // Update the field_image field with Insert module settings.
+  $field_info = field_info_instance('node', 'field_image', 'article');
+  $field_info['widget']['settings'] = array(
+    'insert' => TRUE,
+    'insert_absolute' => 0,
+    'insert_class' => '',
+    'insert_default' => 'auto',
+    'insert_styles' => array(
+      'auto' => FALSE,
+      'icon_link' => FALSE,
+      'image' => FALSE,
+      'large' => 'large',
+      'medium ' => 'medium',
+      'thumbnail' => 'thumbnail',
+    ),
+    'insert_width' => '',
+  );
+  field_update_instance($field_info);
+  debug($field_info, NULL, TRUE);
+}
