@@ -222,8 +222,8 @@ function xeditor_install() {
   foreach ($rdf_mappings as $rdf_mapping) {
     rdf_mapping_save($rdf_mapping);
   }
-  
-  // Default for "Article". 
+
+  // Default for "Article".
   // Set the default node options.
   variable_set('node_options_article', array('status', 'promote', 'revision'));
 
@@ -344,6 +344,13 @@ function xeditor_install() {
       'settings' => array(
         'progress_indicator' => 'throbber',
         'preview_image_style' => 'thumbnail',
+        'upload_event' => 'auto',
+        'upload_button_text' => 'Upload',
+        'droppable_area_text' => 'Drop files here to upload',
+        'standard_upload' => TRUE,
+        'allow_replace' => FALSE,
+        'multiupload' => FALSE,
+        'media_browser' => FALSE,
       ),
       'weight' => -1,
     ),
@@ -352,13 +359,19 @@ function xeditor_install() {
       'default' => array(
         'label' => 'hidden',
         'type' => 'image',
-        'settings' => array('image_style' => 'large', 'image_link' => ''),
+        'settings' => array(
+          'image_style' => 'large',
+          'image_link' => ''
+        ),
         'weight' => -1,
       ),
       'teaser' => array(
         'label' => 'hidden',
         'type' => 'image',
-        'settings' => array('image_style' => 'medium', 'image_link' => 'content'),
+        'settings' => array(
+          'image_style' => 'medium',
+          'image_link' => 'content'
+        ),
         'weight' => -1,
       ),
     ),
