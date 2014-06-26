@@ -23,31 +23,26 @@ function xeditor_demo_install() {
   // @todo: It would be great to just show this as full node rather than having
   // to do this "Read More" business. Blocked by http://drupal.org/node/1723126.
   $node->title = $t('Welcome to xEditor!');
-  $node->body['und'][0]['value'] = $t('Welcome to a pre-release version of the <a href="@xeditor-project-url">xEditor distribution</a>! Our goal is to greatly improve the authoring experience of Drupal, through a Drupal 7 distribution that can be used today, but can also be proposed as Drupal 8 core improvements for tomorrow. You can read more about it at <a href="@xeditor-announce-url">the official announcement</a> or at <a href="@xeditor-microsite-url">www.xeditor.com</a>. Read on for more info!
+  $node->body['und'][0]['value'] = $t('Welcome to a pre-release version of the xEditor distribution! Our goal is to greatly improve the authoring experience of Drupal, through a Drupal 7 distribution that can be used today, but can also be proposed as Drupal 8 core improvements for tomorrow. Read on for more info!
 
-<img src="http://drupal.org/files/imagecache/grid-3/project-images/spark_logo.png" alt="Xeditor Logo" width="193" height="100" data-caption="The Xeditor logo, complete with a lovely image caption. Go into Edit mode and edit this text! We dare you!" align="right">
+  Please take a look around! Within, you will find such nifty features as:
 
-Please take a look around! Within, you will find such nifty features as:
+  <ul>
+    <li><strong>Inline Editing</strong>, courtesy of <a href="@module-edit-url">Edit module</a>. Simply click into this node, log in as an admin, then click the "Quick Edit" link in the sidebar. From there you can click directly into any field to edit its contents. Including this one! For fancier fields like boolean and multivalue, you get just edit the form field directly. Try it out!</li>
+    <li><strong>"True" WYSIWYG</strong>, courtesy of <a href="@ckeditor-url">CKEditor v4</a>. Edit your rich text with your theme\'s direct styling through the inline editor. Support for images, tables, paste from Word, and more. :)</li>
+    <li><strong>Responsive Layout Builder</strong>, courtesy of the <a href="@module-layout-url">Layout</a> and <a href="@module-grid-url">Gridbuilder</a> modules. It layers on top of Panels (though is architected so it could work on other layout solutions as well). If you want to try it, as an admin go to <a href="@admin-layout-url">Structure &gt; Panels &gt; Custom Layout</a>. You can configure layouts for separate breakpoints (e.g. Mobile, Tablet, Desktop) and even define your own grids. These layouts and grids are all CTools exportable, and become layouts you can use in your Panels pages!</li>
+    <li><strong>New admin theme</strong>, brought to you by <a href="@theme-ember-url">Ember</a>. This brings some nice light styling on Drupal core\'s Seven admin theme as well as a mobile-friendly toolbar courtesy of the Admin module. This functionality is still a bit rough, but we\'re actively working on it right now!</li>
+  </ul>
 
-<ul>
-  <li><strong>Inline Editing</strong>, courtesy of <a href="@module-edit-url">Edit module</a>. Simply click into this node, log in as an admin, then click the "Quick Edit" link in the sidebar. From there you can click directly into any field to edit its contents. Including this one! For fancier fields like boolean and multivalue, you get just edit the form field directly. Try it out!</li>
-  <li><strong>"True" WYSIWYG</strong>, courtesy of <a href="@ckeditor-url">CKEditor v4</a>. Edit your rich text with your theme\'s direct styling through the inline editor. Support for images, tables, paste from Word, and more. :)</li>
-  <li><strong>Responsive Layout Builder</strong>, courtesy of the <a href="@module-layout-url">Layout</a> and <a href="@module-grid-url">Gridbuilder</a> modules. It layers on top of Panels (though is architected so it could work on other layout solutions as well). If you want to try it, as an admin go to <a href="@admin-layout-url">Structure &gt; Panels &gt; Custom Layout</a>. You can configure layouts for separate breakpoints (e.g. Mobile, Tablet, Desktop) and even define your own grids. These layouts and grids are all CTools exportable, and become layouts you can use in your Panels pages!</li>
-  <li><strong>New admin theme</strong>, brought to you by <a href="@theme-ember-url">Ember</a>. This brings some nice light styling on Drupal core\'s Seven admin theme as well as a mobile-friendly toolbar courtesy of the Admin module. This functionality is still a bit rough, but we\'re actively working on it right now!</li>
-</ul>
-
-We hope you enjoy playing with Xeditor! We greatly welcome collaboration; join us in the <a href="@xeditor-issues-url">issue queue</a>!', array(
-  '@xeditor-project-url' => 'http://drupal.org/project/xeditor',
-  '@xeditor-announce-url' => 'http://buytaert.net/announcing-spark-authoring-improvements-for-drupal-7-and-drupal-8',
-  '@xeditor-microsite-url' => 'http://www.xeditor.com/',
-  '@xeditor-issues-url' => 'http://drupal.org/project/issues/xeditor',
-  '@module-edit-url' => 'http://drupal.org/project/edit',
-  '@module-layout-url' => 'http://drupal.org/project/layout',
-  '@module-grid-url' => 'http://drupal.org/project/gridbuilder',
-  '@theme-ember-url' => 'http://drupal.org/project/ember',
-  '@ckeditor-url' => 'http://ckeditor.com/',
-  '@admin-layout-url' => url('admin/structure/panels/layouts/list/default/edit'),
-));
+  We hope you enjoy playing with Xeditor! We greatly welcome collaboration; join us in the <a href="@xeditor-issues-url">issue queue</a>!', array(
+    '@xeditor-issues-url' => 'http://drupal.org/project/issues/xeditor',
+    '@module-edit-url' => 'http://drupal.org/project/edit',
+    '@module-layout-url' => 'http://drupal.org/project/layout',
+    '@module-grid-url' => 'http://drupal.org/project/gridbuilder',
+    '@theme-ember-url' => 'http://drupal.org/project/ember',
+    '@ckeditor-url' => 'http://ckeditor.com/',
+    '@admin-layout-url' => url('admin/structure/panels/layouts/list/default/edit'),
+  ));
   $node->body['und'][0]['format'] = 'filtered_html';
 
   // Boolean.
