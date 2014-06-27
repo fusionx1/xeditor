@@ -302,7 +302,7 @@ function xeditor_install() {
   $field = array(
     'field_name' => 'field_image',
     'type' => 'image',
-    'cardinality' => 1,
+    'cardinality' => -1,
     'locked' => FALSE,
     'indexes' => array('fid' => array('fid')),
     'settings' => array(
@@ -326,7 +326,6 @@ function xeditor_install() {
     'bundle' => 'article',
     'description' => st('Upload an image to go with this article.'),
     'required' => FALSE,
-    'cardinality' => -1,
 
     'settings' => array(
       'file_directory' => 'field/image',
