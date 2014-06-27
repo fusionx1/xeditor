@@ -326,6 +326,7 @@ function xeditor_install() {
     'bundle' => 'article',
     'description' => st('Upload an image to go with this article.'),
     'required' => FALSE,
+    'cardinality' => -1,
 
     'settings' => array(
       'file_directory' => 'field/image',
@@ -341,6 +342,8 @@ function xeditor_install() {
       // Set widget type. Options are "image_image"
       // and "dragndrop_upload_image".
       'type' => 'dragndrop_upload_image',
+      'module' => 'dragndrop_upload_image',
+      'active' => TRUE,
       'settings' => array(
         'progress_indicator' => 'throbber',
         'preview_image_style' => 'thumbnail',
@@ -349,7 +352,7 @@ function xeditor_install() {
         'droppable_area_text' => 'Drop files here to upload',
         'standard_upload' => TRUE,
         'allow_replace' => FALSE,
-        'multiupload' => FALSE,
+        'multiupload' => TRUE,
         'media_browser' => FALSE,
       ),
       'weight' => -1,
