@@ -66,4 +66,5 @@ dependencies[] = video_ui
 dependencies[] = dragndrop_upload
 dependencies[] = dragndrop_upload_file
 dependencies[] = dragndrop_upload_image
+dependencies[] = dragndrop_upload_multi
 
