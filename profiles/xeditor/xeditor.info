@@ -48,6 +48,15 @@ dependencies[] = views_ui
 dependencies[] = simplified_menu_admin
 dependencies[] = draggableviews
 
+; Required Media modules
+dependencies[] = multiupload_filefield_widget
+dependencies[] = video
+dependencies[] = video_ui
+dependencies[] = dragndrop_upload
+dependencies[] = dragndrop_upload_file
+dependencies[] = dragndrop_upload_image
+dependencies[] = dragndrop_upload_multi
+
 ; Required projects
 dependencies[] = ckeditor
 dependencies[] = edit
@@ -59,13 +68,3 @@ dependencies[] = diff
 dependencies[] = insert
 dependencies[] = xeditor_demo
 dependencies[] = xeditor_core
-
-; Required Media modules
-dependencies[] = multiupload_filefield_widget
-dependencies[] = video
-dependencies[] = video_ui
-dependencies[] = dragndrop_upload
-dependencies[] = dragndrop_upload_file
-dependencies[] = dragndrop_upload_image
-dependencies[] = dragndrop_upload_multi
-
