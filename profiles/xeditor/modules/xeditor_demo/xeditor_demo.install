@@ -85,7 +85,6 @@ function xeditor_demo_install() {
   );
 
   // @todo: File/Image.
-
   node_save($node);
 
   // Set site frontpage to demo page manager page.

@@ -351,6 +351,7 @@ function xeditor_install() {
         'droppable_area_text' => 'Drop files here to upload',
         'standard_upload' => TRUE,
         'allow_replace' => FALSE,
+        // Allow multi-upload,
         'multiupload' => TRUE,
         'media_browser' => FALSE,
       ),
