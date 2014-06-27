@@ -11,5 +11,5 @@
  */
 function xeditor_form_install_configure_form_alter(&$form, $form_state) {
   // Pre-populate the site name.
-  $form['site_information']['site_name']['#default_value'] = "xEditor | Awesome Drupal Editor";
+  $form['site_information']['site_name']['#default_value'] = "xEditor | Content Management Made Easy";
 }
