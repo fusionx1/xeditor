@@ -61,6 +61,7 @@ dependencies[] = xeditor_demo
 dependencies[] = xeditor_core
 
 ; Required Media modules
+dependencies[] = multiupload_filefield_widget
 dependencies[] = video
 dependencies[] = video_ui
 dependencies[] = dragndrop_upload
