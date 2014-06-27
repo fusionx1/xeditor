@@ -57,6 +57,9 @@ dependencies[] = dragndrop_upload_file
 dependencies[] = dragndrop_upload_image
 dependencies[] = dragndrop_upload_multi
 
+; Floating Navigation
+dependencies[] = floating_block
+
 ; Required projects
 dependencies[] = ckeditor
 dependencies[] = edit
