@@ -9,3 +9,31 @@
 .node-form .droppable.dropped {
   border: none;
 }
+
+.edit-form-container .edit-form {
+  max-width: 100%;
+  width: 100%;
+}
+
+.edit-form-container .edit-form form {
+  padding: 0;
+  margin: 0;
+  width: 694px;
+}
+
+.edit-form-container .edit-form .form-wrapper {
+  margin: 0;
+}
+
+.edit-init-processed article .content {
+  width: 694px;
+}
+
+article .edit-form.edit-highlighted,
+article .edit-field.edit-editable, .edit-field .edit-editable {
+  box-shadow: none;
+}
+
+#edit-field-form #edit-body-und-0-format {
+  display: none;
+}
