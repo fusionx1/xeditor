@@ -489,7 +489,10 @@ function xeditor_install() {
   // This is part of floating Navigation.
   db_update('menu_links')
     ->fields(array('expanded' => 1))
-    ->condition('link_title', 'Add content')
+    ->condition('link_aitle', 'Add content')
     ->condition('menu_name', 'navigation')
     ->execute();
+  // Set the CSS selector to be float.
+  // This should be the wrapper of Navigation menu.
+  variable_set('floating_blocks', array("#block-system-navigation"));
 }
