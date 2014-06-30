@@ -59,6 +59,8 @@ dependencies[] = dragndrop_upload_multi
 
 ; Floating Navigation
 dependencies[] = floating_block
+; Back to top button
+dependencies[] = back_to_top
 
 ; Required projects
 dependencies[] = ckeditor
