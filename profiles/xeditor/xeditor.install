@@ -497,6 +497,7 @@ function xeditor_install() {
   $link = menu_link_load($mlid);
   // Alter "expanded" value.
   $link['expanded'] = 1;
+  // This is the magic trick to run menu_link_save in hook_install.
   $link['customized'] = 1;
   menu_link_save($link);
   menu_cache_clear_all();
