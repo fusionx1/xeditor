@@ -12,6 +12,8 @@
  * @see system_install()
  */
 function xeditor_install() {
+  $t = get_t();
+
   theme_enable(array('responsive_bartik'));
   variable_set('theme_default', 'responsive_bartik');
 
@@ -159,7 +161,16 @@ function xeditor_install() {
       'cache' => -1,
     ),
   );
-  $query = db_insert('block')->fields(array('module', 'delta', 'theme', 'status', 'weight', 'region', 'pages', 'cache'));
+  $query = db_insert('block')->fields(array(
+    'module',
+    'delta',
+    'theme',
+    'status',
+    'weight',
+    'region',
+    'pages',
+    'cache')
+  );
   foreach ($blocks as $block) {
     $query->values($block);
   }
@@ -171,18 +182,18 @@ function xeditor_install() {
   $types = array(
     array(
       'type' => 'page',
-      'name' => st('Basic page'),
+      'name' => $t('Basic page'),
       'base' => 'node_content',
-      'description' => st("Use <em>basic pages</em> for your static content, such as an 'About us' page."),
+      'description' => $t("Use <em>basic pages</em> for your static content, such as an 'About us' page."),
       'custom' => 1,
       'modified' => 1,
       'locked' => 0,
     ),
     array(
       'type' => 'article',
-      'name' => st('Article'),
+      'name' => $t('Article'),
       'base' => 'node_content',
-      'description' => st('Use <em>articles</em> for time-sensitive content like news, press releases or blog posts.'),
+      'description' => $t('Use <em>articles</em> for time-sensitive content like news, press releases or blog posts.'),
       'custom' => 1,
       'modified' => 1,
       'locked' => 0,
@@ -231,10 +242,12 @@ function xeditor_install() {
   variable_set('node_options_page', array('status'));
   variable_set('comment_page', COMMENT_NODE_HIDDEN);
 
-  // Don't display date and author information for "Basic page" nodes by default.
+  // Don't display date and author information for
+  // "Basic page" nodes by default.
   variable_set('node_submitted_page', FALSE);
 
-  // Enable user picture support and set the default to a square thumbnail option.
+  // Enable user picture support and set the default
+  // to a square thumbnail option.
   variable_set('user_pictures', '1');
   variable_set('user_picture_dimensions', '1024x1024');
   variable_set('user_picture_file_size', '800');
@@ -243,11 +256,12 @@ function xeditor_install() {
   // Allow visitor account creation with administrative approval.
   variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
 
-  // Create a default vocabulary named "Tags", enabled for the 'article' content type.
-  $description = st('Use tags to group articles on similar topics into categories.');
-  $help = st('Enter a comma-separated list of words to describe your content.');
+  // Create a default vocabulary named "Tags", enabled
+  // for the 'article' content type.
+  $description = $t('Use tags to group articles on similar topics into categories.');
+  $help = $t('Enter a comma-separated list of words to describe your content.');
   $vocabulary = (object) array(
-    'name' => st('Tags'),
+    'name' => $t('Tags'),
     'description' => $description,
     'machine_name' => 'tags',
     'help' => $help,
@@ -294,9 +308,10 @@ function xeditor_install() {
   );
   field_create_instance($instance);
 
-
-  // Create an image field named "Image", enabled for the 'article' content type.
-  // Many of the following values will be defaulted, they're included here as an illustrative examples.
+  // Create an image field named "Image", enabled for
+  // the 'article' content type.
+  // Many of the following values will be defaulted, they're included
+  // here as an illustrative examples.
   // See http://api.drupal.org/api/function/field_create_field/7
 
   $field = array(
@@ -316,15 +331,15 @@ function xeditor_install() {
   );
   field_create_field($field);
 
-
-  // Many of the following values will be defaulted, they're included here as an illustrative examples.
+  // Many of the following values will be defaulted, they're
+  // included here as an illustrative examples.
   // See http://api.drupal.org/api/function/field_create_instance/7
   $instance = array(
     'field_name' => 'field_image',
     'entity_type' => 'node',
     'label' => 'Image',
     'bundle' => 'article',
-    'description' => st('Upload an image to go with this article.'),
+    'description' => $t('Upload an image to go with this article.'),
     'required' => FALSE,
 
     'settings' => array(
@@ -348,10 +363,10 @@ function xeditor_install() {
         'preview_image_style' => 'thumbnail',
         'upload_event' => 'auto',
         'upload_button_text' => 'Upload',
-        'droppable_area_text' => 'Drop files here to upload',
+        'droppable_area_text' => $t('Drop files here to upload'),
         'standard_upload' => TRUE,
         'allow_replace' => FALSE,
-        // Allow multi-upload,
+        // Allow multi-upload.
         'multiupload' => TRUE,
         'media_browser' => FALSE,
       ),
@@ -364,7 +379,7 @@ function xeditor_install() {
         'type' => 'image',
         'settings' => array(
           'image_style' => 'large',
-          'image_link' => ''
+          'image_link' => '',
         ),
         'weight' => -1,
       ),
@@ -373,7 +388,7 @@ function xeditor_install() {
         'type' => 'image',
         'settings' => array(
           'image_style' => 'medium',
-          'image_link' => 'content'
+          'image_link' => 'content',
         ),
         'weight' => -1,
       ),
@@ -383,10 +398,21 @@ function xeditor_install() {
 
   // Enable default permissions for system roles.
   $filtered_html_permission = filter_permission_name($filtered_html_format);
-  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access content', 'access comments', $filtered_html_permission));
-  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access content', 'access comments', 'post comments', 'skip comment approval', $filtered_html_permission));
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array(
+    'access content',
+    'access comments',
+    $filtered_html_permission)
+  );
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array(
+    'access content',
+    'access comments',
+    'post comments',
+    'skip comment approval',
+    $filtered_html_permission)
+  );
 
-  // Create a default role for site administrators, with all available permissions assigned.
+  // Create a default role for site administrators, with all
+  // available permissions assigned.
   $admin_role = new stdClass();
   $admin_role->name = 'administrator';
   $admin_role->weight = 2;
@@ -402,7 +428,7 @@ function xeditor_install() {
 
   // Create a Home link in the main menu.
   $item = array(
-    'link_title' => st('Home'),
+    'link_title' => $t('Home'),
     'link_path' => '<front>',
     'menu_name' => 'main-menu',
   );
@@ -427,9 +453,9 @@ function xeditor_install() {
   variable_set('jquery_update_jquery_version', '1.7');
 
   // Create an "About Us" page, for testing content links in Aloha.
-  // @todo: It's really stupid we have to do this here instead of in xeditor_demo module,
+  // @todo: It's really stupid we have to do this here
+  // instead of in xeditor_demo module,
   // but 'page' doesn't exist yet when xeditor_demo_install() runs. :(
-  $t = get_t();
 
   $node = new stdClass();
   $node->uid = 1;
@@ -439,7 +465,7 @@ function xeditor_install() {
   $node->title = $t('About Us');
   $node->body['und'][0]['value'] =  $t('<p><a href="@xteam-url" target="_blank">X-Team</a> is a global development team of 100+ carefully chosen specialists. Whether you need help scaling your team or building a new one, <a href="@xteam-url" target="_blank">X-Team</a> is here to help you build the future.</p><p>Content management is rarely a smooth, efficient process when it comes to the process of creating, editing, and publishing new content is. Xeditor was created to make content management easier, more fun, and more efficient than ever.', array('@xteam-url' => "http://x-team.com"));
   $node->body['und'][0]['format'] = 'filtered_html';
-  $node->menu = array (
+  $node->menu = array(
     'enabled' => 1,
     'mlid' => 0,
     'module' => 'menu',
