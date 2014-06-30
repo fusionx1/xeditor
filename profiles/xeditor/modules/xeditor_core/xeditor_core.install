@@ -8,5 +8,7 @@
  * Implements hook_install().
  */
 function xeditor_core_install() {
-  //
+  // Set the CSS selector to be float.
+  // This should be the wrapper of Navigation menu.
+  variable_set('floating_blocks', array("#block-system-navigation" => array()));
 }
