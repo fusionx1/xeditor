@@ -498,6 +498,7 @@ function xeditor_install() {
   // Alter "expanded" value.
   $link['expanded'] = 1;
   // This is the magic trick to run menu_link_save in hook_install.
+  // See - https://api.drupal.org/comment/53423#comment-53423
   $link['customized'] = 1;
   menu_link_save($link);
   menu_cache_clear_all();
