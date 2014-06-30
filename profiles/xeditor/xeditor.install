@@ -485,13 +485,19 @@ function xeditor_install() {
 
   node_save($node);
 
-  // Update Navigation to expand state.
-  // This is part of floating Navigation.
-  db_update('menu_links')
-    ->fields(array('expanded' => 1))
-    ->condition('link_title', 'Add content')
-    ->condition('menu_name', 'navigation')
-    ->execute();
-  menu_rebuild();
-  _menu_clear_page_cache();
+  // Get "Add content" mild.
+  $mlid = db_query("SELECT mlid FROM {menu_links} WHERE link_title=:link_title AND link_path=:link_path AND menu_name=:menu_name",
+    array(
+      ':link_title' => 'Add content',
+      ':link_path'  => 'node/add',
+      ':menu_name'  => 'navigation',
+    )
+  )
+  ->fetchField();
+  $link = menu_link_load($mlid);
+  // Alter "expanded" value.
+  $link['expanded'] = 1;
+  $link['customized'] = 1;
+  menu_link_save($link);
+  menu_cache_clear_all();
 }
