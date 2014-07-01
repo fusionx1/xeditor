@@ -63,8 +63,11 @@ dependencies[] = floating_block
 ; Back to top button
 dependencies[] = back_to_top
 
-;Path aliasing
+; Path aliasing
 dependencies[] = pathauto
+
+; SEO
+dependencies[] = metatag
 
 ; Required projects
 dependencies[] = ckeditor
