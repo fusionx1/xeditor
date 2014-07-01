@@ -47,6 +47,7 @@ dependencies[] = views
 dependencies[] = views_ui
 dependencies[] = simplified_menu_admin
 dependencies[] = draggableviews
+dependencies[] = token
 
 ; Required Media modules
 dependencies[] = multiupload_filefield_widget
@@ -61,6 +62,9 @@ dependencies[] = dragndrop_upload_multi
 dependencies[] = floating_block
 ; Back to top button
 dependencies[] = back_to_top
+
+;Path aliasing
+dependencies[] = pathauto
 
 ; Required projects
 dependencies[] = ckeditor
