@@ -8,7 +8,7 @@
 /**
  * The current system version.
  */
-define('VERSION', '7.26');
+define('VERSION', '7.28');
 
 /**
  * Core API compatibility.
@@ -17,16 +17,8 @@ define('DRUPAL_CORE_COMPATIBILITY', '7.x');
 
 /**
  * Minimum supported version of PHP.
- *
- * @todo: Hacked this value to PHP 5.3 due to this core bug:
- * http://drupal.org/node/1724130
- *
- * Note that Drupal 8 requires PHP 5.3.3, but this requirement is laxed to
- * 5.3.2 here so that Spark will work on Ubuntu LTS and similar distros. The
- * 5.3.3 requirement works for Drupal 8, slated for release late next year, but
- * not for Spark, which needs to work now.
  */
-define('DRUPAL_MINIMUM_PHP', '5.3.2');
+define('DRUPAL_MINIMUM_PHP', '5.2.4');
 
 /**
  * Minimum recommended value of PHP memory_limit.
