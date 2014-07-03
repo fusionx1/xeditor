@@ -32,6 +32,7 @@ dependencies[] = rdf
 dependencies[] = search
 dependencies[] = shortcut
 dependencies[] = taxonomy
+dependencies[] = overlay
 
 ; Required modules (Contrib)
 dependencies[] = breakpoints
