@@ -95,3 +95,12 @@ article .edit-field.edit-editable,
 #edit-entity-toolbar.edit-toolbar-container > .edit-toolbar-lining {
   box-shadow: none;
 }
+
+/* Fix for missing close button - Override Ember CSS */
+#overlay #overlay-titlebar {
+  display: block;
+}
+
+#overlay-titlebar #overlay-title-wrapper {
+  display: none;
+}
