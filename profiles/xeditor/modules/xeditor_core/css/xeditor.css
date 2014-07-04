@@ -104,3 +104,16 @@ article .edit-field.edit-editable,
 #overlay-titlebar #overlay-title-wrapper {
   display: none;
 }
+
+#overlay #overlay-tabs li.active a,
+#overlay #overlay-tabs li.active a.active {
+  background-color: #303030;
+  color: #fff;
+  margin-bottom: 0;
+  padding-bottom: 2px;
+}
+
+#overlay  #overlay-tabs li a {
+  background-color: #303030;
+  color: #eee;
+}
