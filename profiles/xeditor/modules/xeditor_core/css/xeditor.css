@@ -113,7 +113,15 @@ article .edit-field.edit-editable,
   padding-bottom: 2px;
 }
 
-#overlay  #overlay-tabs li a {
+#overlay #overlay-tabs li a {
   background-color: #303030;
   color: #eee;
+}
+
+#overlay #overlay-close {
+  background: #303030 url("../images/close-button-md.png") no-repeat center center;
+  background-size: 28px 28px;
+  border-radius: 0 20px 20px 0;
+  height: 38px;
+  width: 38px;
 }
