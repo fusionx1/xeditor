@@ -6,7 +6,11 @@
 
   Drupal.behaviors.xeditorCore = {
     attach: function (context, settings) {
-      // Do something
+      // Load editable fields when tapping content.
+      // See - http://api.jquery.com/trigger/.
+      $(".node .field-name-body, .node h2 a").click(function() {
+        $(".quick-edit a").trigger("click");
+      });
     }
   };
 })(jQuery);
