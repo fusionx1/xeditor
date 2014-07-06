@@ -9,13 +9,18 @@
  */
 function xeditor_core_init() {
   // Extend edit module edit.js functionality.
-  $js_path = drupal_get_path('module', 'xeditor_core') . '/js/xeditor.js';
-  drupal_add_js($js_path, array(
-    'scope' => 'footer',
-    'group' => JS_THEME,
-    'every_page' => TRUE,
-    'weight' => -1,
-  ));
+  $js_files = array('jquery.selection.js', 'xeditor.js');
+  $js_dir = drupal_get_path('module', 'xeditor_core') . '/js/';
+  $counter = 1;
+  foreach ($js_files as $js_file) {
+    drupal_add_js($js_dir . $js_file, array(
+      'scope' => 'footer',
+      'group' => JS_THEME,
+      'every_page' => TRUE,
+      'weight' => -$counter,
+    ));
+    $counter++;
+  }
   // CSS file for Barley-like feel.
   drupal_add_css(drupal_get_path('module', 'xeditor_core') . '/css/xeditor.css');
 }
