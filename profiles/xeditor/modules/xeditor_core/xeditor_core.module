@@ -9,7 +9,7 @@
  */
 function xeditor_core_init() {
   // Extend edit module edit.js functionality.
-  $js_files = array('jquery.selection.js', 'xeditor.js');
+  $js_files = array('xeditor.js', 'jquery.selection.js');
   $js_dir = drupal_get_path('module', 'xeditor_core') . '/js/';
   $counter = 1;
   foreach ($js_files as $js_file) {
