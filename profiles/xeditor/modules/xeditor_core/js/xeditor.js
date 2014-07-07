@@ -40,6 +40,11 @@
     else if (document.selection && document.selection.type != "Control") {
       text = document.selection.createRange().text;
     }
+
+    // Set global variable to be accessed by Ckeditor.
+    window.XEDITOR = window.XEDITOR || {};
+    window.XEDITOR.current_selection = text;
+
     return text;
   };
 
