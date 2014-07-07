@@ -11,26 +11,36 @@
       $(".node .field-name-body, .node h2 a").click(function() {
         $(".quick-edit a").trigger("click");
       });
+
+      // Load ckeditor.
+      var element = $(".node .field-name-body .field-item");
+      $(element).mouseup(function(){
+        var selection = Drupal.xeditor.getSelection();
+        if (selection.length != 0) {
+          setTimeout(function(){
+            if ($(".node .field-name-body").hasClass("edit-editable")) {
+              $(".node .field-name-body.edit-editable").trigger("click");
+            }
+          }, 1000);
+        }
+      });
     }
   };
 
-  function SelectText(element) {
-    var text = document.getElementById(element);
-    if ($.browser.msie) {
-      var range = document.body.createTextRange();
-      range.moveToElementText(text);
-      range.select();
+  Drupal.xeditor = new Object;
+
+  /**
+   * Get text selection.
+   */
+  Drupal.xeditor.getSelection = function() {
+    var text = "";
+    if (window.getSelection) {
+      text = window.getSelection().toString();
     }
-    else if ($.browser.mozilla || $.browser.opera) {
-      var selection = window.getSelection();
-      var range = document.createRange();
-      range.selectNodeContents(text);
-      selection.removeAllRanges();
-      selection.addRange(range);
+    else if (document.selection && document.selection.type != "Control") {
+      text = document.selection.createRange().text;
     }
-    else if ($.browser.safari) {
-      var selection = window.getSelection();
-      selection.setBaseAndExtent(text, 0, text, 1);
-    }
-  }
+    return text;
+  };
+
 })(jQuery);
