@@ -49,6 +49,7 @@ dependencies[] = views_ui
 dependencies[] = simplified_menu_admin
 dependencies[] = draggableviews
 dependencies[] = token
+dependencies[] = workbench
 
 ; Required Media modules
 dependencies[] = multiupload_filefield_widget
