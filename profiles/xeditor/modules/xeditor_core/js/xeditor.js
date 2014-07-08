@@ -8,8 +8,13 @@
     attach: function (context, settings) {
       // Load editable fields when tapping content.
       // See - http://api.jquery.com/trigger/.
-      $(".node .field-name-body, .node h2 a").click(function() {
+      $(".front .node .field-name-body, .node .field-name-body, .node h2 a, .page-node h1.title").click(function() {
         $(".quick-edit a").trigger("click");
+        setTimeout(function() {
+          if ($(".page-node h1.title > div").hasClass("edit-editable")) {
+            $(".page-node h1.title > div").trigger("click").focus();
+          }
+        }, 50);
       });
 
       // Load ckeditor.
@@ -17,13 +22,16 @@
       $(element).mouseup(function(){
         var selection = Drupal.xeditor.getSelection();
         if (selection.length != 0) {
-          setTimeout(function(){
-            if ($(".node .field-name-body").hasClass("edit-editable")) {
+          setTimeout(function() {
+            if ($(".node .field-name-body, .node .field-name-body .field-item").hasClass("edit-editable")) {
               $(".node .field-name-body.edit-editable").trigger("click");
+              $(".node .field-name-body .edit-editable").trigger("click");
             }
-          }, 1000);
+          }, 90);
         }
       });
+
+      //jQuery(".node .field-name-body").attr("contenteditable", "true");
     }
   };
 
@@ -40,10 +48,6 @@
     else if (document.selection && document.selection.type != "Control") {
       text = document.selection.createRange().text;
     }
-
-    // Set global variable to be accessed by Ckeditor.
-    window.XEDITOR = window.XEDITOR || {};
-    window.XEDITOR.current_selection = text;
 
     return text;
   };

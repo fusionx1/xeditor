@@ -61,6 +61,14 @@ article .edit-field.edit-editable,
   width: 152px !important;
 }
 
+.page-node #edit-entity-toolbar.edit {
+  left: 363px !important;
+  max-width: 947px !important;
+  min-width: 900px !important;
+  top: 215px !important;
+  width: 947px !important;
+}
+
 #edit-entity-toolbar.edit-toolbar-container > .edit-toolbar-pointer {
   bottom: 0;
   box-shadow: none;
@@ -124,4 +132,33 @@ article .edit-field.edit-editable,
   border-radius: 0 20px 20px 0;
   height: 38px;
   width: 38px;
+}
+
+#edit-entity-toolbar.edit .icon-close:before {
+  background: transparent url("../images/close-button-md.png") no-repeat center center;
+  background-size: 28px 28px;
+  height: 38px;
+  width: 38px;
+  top: 0;
+}
+
+#edit-entity-toolbar.edit .icon {
+  min-height: 38px;
+  min-width: 38px;
+  position: relative;
+}
+
+#edit-entity-toolbar .edit-toolbar-content > .edit-toolbar-entity {
+  background: #000;
+  bottom: 0;
+  left: 0;
+  opacity: 0.6;
+  padding-left: 245px;
+  position: fixed;
+  width: 100%;
+}
+
+#edit-entity-toolbar .edit-toolbar-content .edit-toolbar-field {
+  top: 41px;
+  position: absolute;
 }
