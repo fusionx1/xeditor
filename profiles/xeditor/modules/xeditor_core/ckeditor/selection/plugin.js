@@ -21,8 +21,8 @@
     },
 
     afterInit: function (editor) {
-      console.log(Drupal.xeditor.getSelection());
-      var selection = new CKEDITOR.dom.selection(CKEDITOR.document);
+      //console.log(Drupal.xeditor.getSelection());
+      //console.log(editor.getSelection().selectBookmarks(SELECTION.bookmarks));
     }
 
   });

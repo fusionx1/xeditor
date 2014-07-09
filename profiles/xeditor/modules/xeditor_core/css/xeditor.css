@@ -59,6 +59,7 @@ article .edit-field.edit-editable,
   min-width: 152px !important;
   top: 238px !important;
   width: 152px !important;
+  z-index: 9999999;
 }
 
 .page-node #edit-entity-toolbar.edit {
@@ -67,6 +68,11 @@ article .edit-field.edit-editable,
   min-width: 900px !important;
   top: 215px !important;
   width: 947px !important;
+}
+
+#edit-entity-toolbar .edit-toolgroup.ops {
+  position: absolute;
+  top: 8px;
 }
 
 #edit-entity-toolbar.edit-toolbar-container > .edit-toolbar-pointer {
@@ -151,6 +157,7 @@ article .edit-field.edit-editable,
 #edit-entity-toolbar .edit-toolbar-content > .edit-toolbar-entity {
   background: #000;
   bottom: 0;
+  height: 52px;
   left: 0;
   opacity: 0.6;
   padding-left: 245px;

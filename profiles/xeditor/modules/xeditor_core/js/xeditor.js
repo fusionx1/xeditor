@@ -33,13 +33,13 @@
 
       //jQuery(".node .field-name-body").attr("contenteditable", "true");
 
+      window.SELECTION = window.SELECTION || {};
+
       // Create an instance of CKEDITOR.dom.selection.
-      var selection = new CKEDITOR.dom.selection(CKEDITOR.document);
+      //var selection = new CKEDITOR.dom.selection(CKEDITOR.document);
 
       // Save bookmarks with selection.createBookmarks():
-      var bookmarks = selection.createBookmarks(1);
-      console.log(selection);
-      console.log(bookmarks);
+      //window.SELECTION.bookmarks = selection.createBookmarks(1);
     }
   };
 
