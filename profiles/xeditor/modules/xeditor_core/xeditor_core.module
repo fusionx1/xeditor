@@ -13,16 +13,18 @@ function xeditor_core_ckeditor_plugin() {
     'ckeditor_selection' => array(
       // Name of the plugin used to write it.
       'name' => 'selection',
-      // Description of the plugin - it would be displayed in the plugins management section of profile settings.
+      // Description of the plugin it would be displayed in
+      // the plugins management section of profile settings.
       'desc' => t('Manage selection'),
-      // The full path to the CKEditor plugins directory, with the trailing slash.
+      // The full path to the CKEditor plugins
+      // directory, with the trailing slash.
       'path' => drupal_get_path('module', 'xeditor_core') . '/ckeditor/selection/',
       'buttons' => array(
         'selection' => array(
           'icon' => 'icons/selection.png',
           'label' => 'Manage Selection',
-        )
-      )
+        ),
+      ),
     ),
   );
 }
@@ -32,6 +34,9 @@ function xeditor_core_ckeditor_plugin() {
  * Implements hook_init().
  */
 function xeditor_core_init() {
+  // Get all loaded javascript.
+  $scripts = drupal_add_js();
+
   // Extend edit module edit.js functionality.
   $js_files = array('xeditor.js', 'jquery.selection.js');
   $js_dir = drupal_get_path('module', 'xeditor_core') . '/js/';
@@ -44,6 +49,16 @@ function xeditor_core_init() {
       'weight' => -$counter,
     ));
     $counter++;
+  }
+
+  // Pre-load the ckeditor.js for manipulating user selection.
+  if (!in_array('profiles/xeditor/libraries/ckeditor/ckeditor.js', $scripts)) {
+    drupal_add_js('profiles/xeditor/libraries/ckeditor/ckeditor.js', array(
+      'scope' => 'footer',
+      'group' => JS_THEME,
+      'every_page' => TRUE,
+      'weight' => -3,
+    ));
   }
   // CSS file for Barley-like feel.
   drupal_add_css(drupal_get_path('module', 'xeditor_core') . '/css/xeditor.css');

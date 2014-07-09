@@ -32,6 +32,14 @@
       });
 
       //jQuery(".node .field-name-body").attr("contenteditable", "true");
+
+      // Create an instance of CKEDITOR.dom.selection.
+      var selection = new CKEDITOR.dom.selection(CKEDITOR.document);
+
+      // Save bookmarks with selection.createBookmarks():
+      var bookmarks = selection.createBookmarks(1);
+      console.log(selection);
+      console.log(bookmarks);
     }
   };
 
@@ -51,5 +59,22 @@
 
     return text;
   };
+
+  // Pre-Load Ckeditor script via AJAX.
+  Drupal.xeditor.loadScript = function(url, callback) {
+    // Adding the script tag to the head as suggested before
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+
+    // Fire the loading
+    head.appendChild(script);
+  }
 
 })(jQuery);
