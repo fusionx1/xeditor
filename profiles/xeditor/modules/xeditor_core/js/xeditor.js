@@ -5,7 +5,10 @@
 (function ($) {
 
   Drupal.behaviors.xeditorCore = {
+    // This behavior function is called when new element is being added.
     attach: function (context, settings) {
+      // Do your js stuffs you want to do after your AJAX call.
+      // ******************************************************
       // Load editable fields when tapping content.
       // See - http://api.jquery.com/trigger/.
       $(".front .node .field-name-body, .node .field-name-body, .node h2 a, .page-node h1.title").click(function() {
@@ -31,18 +34,19 @@
         }
       });
 
-      //jQuery(".node .field-name-body").attr("contenteditable", "true");
+      // This is to activate Ckeditor native inline-edit.
+      // jQuery(".node .field-name-body").attr("contenteditable", "true");
+    },
 
-      window.SELECTION = window.SELECTION || {};
-
-      // Create an instance of CKEDITOR.dom.selection.
-      //var selection = new CKEDITOR.dom.selection(CKEDITOR.document);
-
-      // Save bookmarks with selection.createBookmarks():
-      //window.SELECTION.bookmarks = selection.createBookmarks(1);
+    // This behavior function is called when elements are removed.
+    detach: function (context, settings) {
+      // Do your js stuffs you want to do after your AJAX call.
     }
   };
 
+  /**
+   * Create a new object called 'xeditor'.
+   */
   Drupal.xeditor = new Object;
 
   /**
@@ -60,7 +64,9 @@
     return text;
   };
 
-  // Pre-Load Ckeditor script via AJAX.
+  /**
+   * Pre-Load Ckeditor script via AJAX.
+   */
   Drupal.xeditor.loadScript = function(url, callback) {
     // Adding the script tag to the head as suggested before
     var head = document.getElementsByTagName('head')[0];
@@ -75,6 +81,38 @@
 
     // Fire the loading
     head.appendChild(script);
-  }
+  };
+
+  /**
+   *  Pass user selection to Ckeditor instance.
+   */
+  CKEDITOR.on("instanceReady", function(event) {
+    var sel = event.editor.getSelection();
+
+    // Change the selection to the current element.
+    var element = sel.getStartElement();
+    sel.selectElement(element);
+
+    // Move the range to the we selected earlier.
+    var findString = Drupal.xeditor.getSelection();
+    var ranges = event.editor.getSelection().getRanges();
+    var startIndex = element.getHtml().indexOf(findString);
+    if (startIndex != -1) {
+      ranges[0].setStart(element.getFirst(), startIndex);
+      ranges[0].setEnd(element.getFirst(), startIndex + findString.length);
+      sel.selectRanges([ranges[0]]);
+    }
+  });
+
+  /**
+   * Get Ckeditor instance.
+   */
+  Drupal.xeditor.getInstances = function() {
+    CKEDITOR.on("instanceReady", function(event) {
+      for(var instanceName in CKEDITOR.instances) {
+        console.log(CKEDITOR.instances[instanceName]);
+      }
+    });
+  };
 
 })(jQuery);
