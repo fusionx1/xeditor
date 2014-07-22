@@ -87,7 +87,8 @@
    *  Pass user selection to Ckeditor instance.
    */
   CKEDITOR.on("instanceReady", function(event) {
-    var sel = event.editor.getSelection();
+    var editor = event.editor;
+    var sel = editor.getSelection();
 
     // Change the selection to the current element.
     var element = sel.getStartElement();
@@ -95,13 +96,14 @@
 
     // Move the range to the we selected earlier.
     var findString = Drupal.xeditor.getSelection();
-    var ranges = event.editor.getSelection().getRanges();
+    var ranges = editor.getSelection().getRanges();
     var startIndex = element.getHtml().indexOf(findString);
-    if (startIndex != -1) {
+    if (startIndex != -1 && (typeof ranges[0] != 'undefined')) {
       ranges[0].setStart(element.getFirst(), startIndex);
       ranges[0].setEnd(element.getFirst(), startIndex + findString.length);
       sel.selectRanges([ranges[0]]);
     }
+
   });
 
   /**
