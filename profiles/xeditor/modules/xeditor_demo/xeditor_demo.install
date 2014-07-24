@@ -45,23 +45,6 @@ function xeditor_demo_install() {
   ));
   $node->body['und'][0]['format'] = 'filtered_html';
 
-  // Boolean.
-  $node->every_field_list_boolean['und'][0]['value'] = 1;
-
-  // List.
-  $node->every_field_list_text['und'][0]['value'] = 'L';
-
-  // Number.
-  $node->every_field_integer['und'][0]['value'] = 7;
-
-  // Short and long text.
-  $node->every_field_text['und'][0]['value'] = $t('A text field.');
-  $node->every_field_text_long['und'][0]['value'] = $t('Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.
-
-  Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions.
-
-  Completely synergize resource sucking relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.');
-
   // Taxonomy.
   $node->every_field_term_reference['und'] = array(
     array(

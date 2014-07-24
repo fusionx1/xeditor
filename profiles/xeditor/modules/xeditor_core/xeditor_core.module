@@ -38,14 +38,3 @@ function xeditor_core_init() {
   // CSS file for Barley-like feel.
   drupal_add_css(drupal_get_path('module', 'xeditor_core') . '/css/xeditor.css');
 }
-
-
-/**
- * Implements hook_menu_alter().
- */
-function xeditor_core_menu_alter(&$items) {
-  // Add node "Revision" link in Contextual link.
-  $items['node/%node/revisions']['type'] = MENU_LOCAL_ACTION;
-  $items['node/%node/revisions']['context'] = MENU_CONTEXT_INLINE;
-  return $items;
-}
