@@ -73,7 +73,7 @@ dependencies[] = metatag
 
 ; Required projects
 dependencies[] = ckeditor
-dependencies[] = edit
+; dependencies[] = edit
 dependencies[] = gridbuilder
 dependencies[] = layout
 dependencies[] = navbar
