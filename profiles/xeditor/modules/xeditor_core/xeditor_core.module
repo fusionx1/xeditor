@@ -6,31 +6,6 @@
 
 
 /**
- * Implements hook_ckeditor_plugin().
- */
-function xeditor_core_ckeditor_plugin() {
-  return array(
-    'ckeditor_selection' => array(
-      // Name of the plugin used to write it.
-      'name' => 'selection',
-      // Description of the plugin it would be displayed in
-      // the plugins management section of profile settings.
-      'desc' => t('Manage selection'),
-      // The full path to the CKEditor plugins
-      // directory, with the trailing slash.
-      'path' => drupal_get_path('module', 'xeditor_core') . '/ckeditor/selection/',
-      'buttons' => array(
-        'selection' => array(
-          'icon' => 'icons/selection.png',
-          'label' => 'Manage Selection',
-        ),
-      ),
-    ),
-  );
-}
-
-
-/**
  * Implements hook_init().
  */
 function xeditor_core_init() {
