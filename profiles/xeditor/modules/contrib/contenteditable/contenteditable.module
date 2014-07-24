@@ -1,0 +1,143 @@
+<?php
+
+/**
+ * @file
+ * Provide for custom classes on field formatters in the display.
+ */
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function contenteditable_field_formatter_info_alter(array &$info) {
+  // Add to all formatters.
+  foreach ($info as &$formatter) {
+    $formatter['settings']['contenteditable'] = TRUE;
+  }
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary_alter().
+ */
+function contenteditable_field_formatter_settings_summary_alter(&$summary, $context) {
+  $display = $context['instance']['display'][$context['view_mode']];
+  $settings = $display['settings'];
+
+  if (!empty($summary)) {
+    $summary .= '<br />';
+  }
+  if (!empty($settings['contenteditable'])) {
+    $summary .= t('Field is editable.');
+  }
+  else {
+    $summary .= t('Field is not editable.');
+  }
+}
+
+/**
+ * Implements hook_field_formatter_settings_form_alter().
+ */
+function contenteditable_field_formatter_settings_form_alter(&$settings_form, $context) {
+  $display = $context['instance']['display'][$context['view_mode']];
+  $settings = $display['settings'];
+
+  $settings_form['contenteditable'] = array(
+    '#title' => t('Editable Field'),
+    '#type' => 'checkboxes',
+    '#options' => array('0' => 'Disable', '1' => 'Enable'),
+    '#default_value' => array('0' => 'Disable'),
+  );
+}
+
+
+/**
+ * Implements hook_preprocess_field().
+ *
+ * Adds a custom field class to the field's classes_array
+ * according to the field formatter settings.
+ */
+function contenteditable_preprocess_field(&$variables, $hook) {
+  $entity_type = $variables['element']['#entity_type'];
+  $field_name  = $variables['element']['#field_name'];
+  $bundle      = $variables['element']['#bundle'];
+  $view_mode   = $variables['element']['#view_mode'];
+
+  $formatter_info = field_formatter_settings_get_instance_display_settings($entity_type, $field_name, $bundle, $view_mode);
+  // add class for whole field
+  if (!empty($formatter_info['contenteditable'])) {
+    foreach ($variables['element'] as $key => &$field) {
+      if (is_int($key) && array_key_exists('#options', $field)) {
+        $field['#options']['attributes']['contenteditable'][] = 'true';
+      }
+    }
+    //$variables['classes_array'][] = filter_xss($formatter_info['contenteditable'], array());
+  }
+  print "Tessssssssssssssssssst :";
+  print_r($formatter_info['contenteditable']);
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function contenteditable_theme() {
+  return array(
+    'contenteditable' => array(
+      'render element' => 'element',
+    ),
+  );
+}
+
+/**
+ * Implements hook_element_info().
+ */
+function contenteditable_element_info() {
+  return array(
+    'contenteditable' => array(
+      '#input' => TRUE,
+      '#process' => array('ajax_process_form'),
+      '#theme' => array('contenteditable'),
+      '#theme_wrappers' => array('form_element'),
+    ),
+  );
+}
+
+
+/**
+ * Returns HTML for a contenteditable form element.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *   Properties used: #name, #value, #attributes.
+ *
+ * @ingroup themeable
+ */
+function theme_contenteditable($variables) {
+  $element = $variables['element'];
+
+  _form_set_class($element, array('contenteditable'));
+
+  // Drupal core consumes div.error selector to style error messages
+  // and therefore we have use different class name.
+  if ($error_class_index = array_search('error', $element['#attributes']['class'])) {
+    $element['#attributes']['class'][$error_class_index] = 'contenteditable-error';
+  }
+
+  if (empty($element['#disabled'])) {
+    $element['#attributes']['contenteditable'] = 'true';
+  }
+  else {
+    //The disabled attribute will not work with <div/> or <input type="hidden" />.
+    unset($element['#attributes']['disabled']);
+  }
+
+  $output = '<div' . drupal_attributes($element['#attributes']) . '>' . $element['#value'] . '</div>';
+
+  $element['#attributes'] = array('type' => 'hidden');
+  element_set_attributes($element, array('name', 'value'));
+  $output .= '<input' . drupal_attributes($element['#attributes']) . ' />';
+
+  $path = drupal_get_path('module', 'contenteditable');
+
+  return $output;
+}
