@@ -8,9 +8,7 @@
 
     // This behavior function is called when new element is being added.
     attach: function (context, settings) {
-
       if (context == document) {
-        this.applyCKEditor(context);
         this.handleTriggerEvents();
         Drupal.xeditor.init();
       }
@@ -35,14 +33,6 @@
         e.stopPropagation();
       });
     },
-
-    // Adds an attribute to a set of elements.
-    applyCKEditor: function(context) {
-      console.log('Adding contenteditable..');
-      var trigs = this.editTriggers.join(', ');
-
-      $(trigs, context).attr('contenteditable', true);
-    }
 
   };
 
