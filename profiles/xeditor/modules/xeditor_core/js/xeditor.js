@@ -4,6 +4,8 @@
  */
 (function ($) {
 
+  var baseUrl = Drupal.settings.xeditor_core.base_path;
+
   Drupal.xeditor = {
 
     init: function() {
@@ -111,7 +113,7 @@
     // TODO: Finish this function
     saveContent: function(nid, html) {
       var ajx = $.ajax({
-        url: 'profiles/xeditor/modules/xeditor_core/xeditor_core_ajax.php',
+        url: baseUrl + '/profiles/xeditor/modules/xeditor_core/xeditor_core_ajax.php',
         type: 'POST',
         dataType: 'JSON',
         data: { nid: nid, content: html }
@@ -136,7 +138,7 @@
        init : function(editor) {
         var command = editor.addCommand('save', {
             modes : { wysiwyg:1, source:1 },
-            exec : function( editor ) {
+            exec : function(editor) {
               var html = editor.getData(),
                nidAttr = $(editor.element.$).closest('.node').attr('id'),
                   nid  = that.stripNid(nidAttr);
@@ -145,7 +147,7 @@
           }
         );
 
-        editor.ui.addButton( 'Save', { label : 'Save changes', command : 'save', toolbar: 'basicstyles,1' });
+        editor.ui.addButton('Save', { label : 'Save changes', command : 'save', toolbar: 'basicstyles,1' });
        }
       };
 

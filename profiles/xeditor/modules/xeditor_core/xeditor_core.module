@@ -9,11 +9,18 @@
  * Implements hook_init().
  */
 function xeditor_core_init() {
+  global $base_url;
+
   // Get all loaded javascript.
   $scripts = drupal_add_js();
 
   // Extend edit module edit.js functionality.
-  $js_files = array('xeditor.js', 'xeditor_core.js', 'jquery.selection.js', 'jquery.extends.js');
+  $js_files = array(
+    'xeditor.js',
+    'xeditor_core.js',
+    'jquery.selection.js',
+    'jquery.extends.js',
+  );
   $js_dir = drupal_get_path('module', 'xeditor_core') . '/js/';
   $counter = 1;
   foreach ($js_files as $js_file) {
@@ -37,4 +44,9 @@ function xeditor_core_init() {
   }
   // CSS file for Barley-like feel.
   drupal_add_css(drupal_get_path('module', 'xeditor_core') . '/css/xeditor.css');
+
+  // Make sure that base_url is available on xeditor.js.
+  drupal_add_js(array(
+    'xeditor_core' => array('base_path' => $base_url),
+  ), 'setting');
 }
