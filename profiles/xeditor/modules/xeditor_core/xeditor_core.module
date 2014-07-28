@@ -4,6 +4,7 @@
  * Xeditor module file.
  */
 
+module_load_include('inc', 'xeditor_core', 'xeditor_core_ajax');
 
 /**
  * Implements hook_init().
@@ -49,4 +50,39 @@ function xeditor_core_init() {
   drupal_add_js(array(
     'xeditor_core' => array('base_path' => $base_url),
   ), 'setting');
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function xeditor_core_menu() {
+  $items = array();
+
+  $items['ajax-callback'] = array(
+    'description' => 'Ajax handler for creating and editing of node.',
+    'access arguments' => array('administer nodes'),
+    'page callback' => '_xeditor_core_node_save',
+    'title' => 'AJAX Handler',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Ajax handler for saving content.
+ */
+function _xeditor_core_node_save() {
+  if (isset($_POST['nid']) && isset($_POST['content'])) {
+    $nid = $_POST['nid'];
+    $content = $_POST['content'];
+    $node = node_load($nid);
+
+    $node->body[$node->language][0]['value'] = $content;
+    $node->log = "Updated the node " . $node->title;
+    // Save node.
+    node_save($node);
+  }
 }

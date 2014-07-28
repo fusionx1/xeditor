@@ -113,7 +113,7 @@
     // TODO: Finish this function
     saveContent: function(nid, html) {
       var ajx = $.ajax({
-        url: baseUrl + '/profiles/xeditor/modules/xeditor_core/xeditor_core_ajax.php',
+        url: baseUrl + '/ajax-callback',
         type: 'POST',
         dataType: 'JSON',
         data: { nid: nid, content: html }
