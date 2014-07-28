@@ -74,6 +74,7 @@ dependencies[] = metatag
 ; Required projects
 dependencies[] = ckeditor
 ; dependencies[] = edit
+dependencies[] = field_formatter_editable
 dependencies[] = gridbuilder
 dependencies[] = layout
 dependencies[] = navbar

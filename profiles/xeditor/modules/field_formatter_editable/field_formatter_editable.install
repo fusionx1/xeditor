@@ -8,7 +8,7 @@
 /**
  * Implements hook_uninstall().
  */
-function contenteditable_uninstall() {
+function field_formatter_editable_uninstall() {
   $field_info = field_info_fields();
 
   foreach ($field_info as $field) {
