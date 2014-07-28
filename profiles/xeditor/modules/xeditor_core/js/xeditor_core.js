@@ -8,7 +8,6 @@
 
     // This behavior function is called when new element is being added.
     attach: function (context, settings) {
-
       if (context == document) {
         this.applyCKEditor(context);
         this.handleTriggerEvents();
@@ -22,7 +21,6 @@
     },
 
     editTriggers: [
-      '.node .field-item',
       '.node h2 .edit-field',
       'h1.title'
     ],

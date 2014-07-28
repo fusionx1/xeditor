@@ -131,6 +131,30 @@
       });
     },
 
+    getNid: function($el) {
+      var node = $el.closest('.node');
+      var id = $el.closest('.node').attr('id');
+
+      // If there's an H1, then there should be only one node id on page.
+      if (node.length < 1 && $el.is('h1')) {
+        var n = $('.node');
+
+        // Checks if there are more nodes if so, abort!
+        if (n.length > 1) {
+          console.warn('Could not find correct node ID. Aborting save.');
+          return false;
+        } else {
+
+          // Everything went well..
+          return n.attr('id');
+        }
+      } else {
+
+        // Everything went well..
+        return id;
+      }
+    },
+
     applyCKEEvents: function() {
       var that = this;
 
@@ -140,8 +164,9 @@
             modes : { wysiwyg:1, source:1 },
             exec : function(editor) {
               var html = editor.getData(),
-               nidAttr = $(editor.element.$).closest('.node').attr('id'),
+               nidAttr = that.getNid($(editor.element.$)),
                   nid  = that.stripNid(nidAttr);
+
               that.saveContent(nid, html);
             }
           }
