@@ -13,6 +13,24 @@
       this.applyCKEEvents();
     },
 
+    // Unselects everything in the window
+    unselectAll: function() {
+      if (window.getSelection) {
+        if (window.getSelection().empty) {  // Chrome
+          window.getSelection().empty();
+        } else if (window.getSelection().removeAllRanges) {  // Firefox
+          window.getSelection().removeAllRanges();
+        }
+      } else if (document.selection) {  // IE?
+        document.selection.empty();
+      }
+    },
+
+    // Focus the one of the first elements on site (#page)
+    focusDefault: function() {
+      $('#page').find('a, input, textarea, button').first().focus();
+    },
+
     /**
      * getSelection()
      * - Returns the current selection from window
@@ -188,7 +206,12 @@
                  field = that.deduceField($(editor.element.$)),
                   nid  = that.stripNid(nidAttr);
 
+              // Fires save event, then saves and unfocus/blur/unselects everything
+              editor.fire('save');
               that.saveContent(nid, field, html);
+              editor.fire('blur');
+              that.unselectAll();
+              that.focusDefault();
             }
           });
 
@@ -205,6 +228,9 @@
             that.setTitleSettings(editor);
           });
         }
+
+        editor.on('save', function(e) {
+        });
       });
 
       CKEDITOR.on("instanceReady", function(e) {
