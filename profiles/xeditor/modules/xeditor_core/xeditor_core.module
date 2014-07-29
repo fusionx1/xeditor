@@ -4,13 +4,15 @@
  * Xeditor module file.
  */
 
-module_load_include('inc', 'xeditor_core', 'xeditor_core_ajax');
-
 /**
  * Implements hook_init().
  */
 function xeditor_core_init() {
   global $base_url;
+
+  // Get menu map.
+  $current_menu = menu_get_item();
+  $menu_arg = $current_menu['original_map'];
 
   // Get all loaded javascript.
   $scripts = drupal_add_js();
@@ -50,6 +52,11 @@ function xeditor_core_init() {
   drupal_add_js(array(
     'xeditor_core' => array('base_path' => $base_url),
   ), 'setting');
+
+  // Get the arg 0.
+  drupal_add_js(array(
+    'xeditor_core' => array('arg_zero' => $menu_arg[0]),
+  ), 'setting');
 }
 
 
@@ -78,10 +85,41 @@ function _xeditor_core_node_save() {
   if (isset($_POST['nid']) && isset($_POST['content'])) {
     $nid = $_POST['nid'];
     $content = $_POST['content'];
-    $node = node_load($nid);
+    // Load node object, bypass the cache system.
+    $node = node_load($nid, NULL, TRUE);
+    $url_arg = (isset($_POST['arg']) ? $_POST['arg'] : '');
+    // Input format.
+    $format = filter_format_load('filtered_html');
 
-    $node->body[$node->language][0]['value'] = $content;
-    $node->log = "Updated the node " . $node->title;
+    // Create new revision.
+    $node->revision = 1;
+
+    if ($url_arg != 'node') {
+      $node->body[$node->language][0]['summary'] = check_markup(
+        $content,
+        $format['format'],
+        $langcode = '',
+        $cache = FALSE
+      );
+      $node->log = "Updated the node - " . filter_xss($node->title, array());
+    }
+    else {
+      $node->body[$node->language][0]['value'] = check_markup(
+        $content,
+        $format->format,
+        $langcode = '',
+        $cache = FALSE
+      );
+      $node->log = "Updated the node - " . filter_xss($node->title, array());
+    }
+
+    // Disable pathauto to prevent overwritting of pathalias.
+    $node->path['pathauto'] = FALSE;
+
+    // Validate the node.
+    node_validate($node);
+    // Prepares node for saving by populating author and creation date.
+    node_submit($node);
     // Save node.
     node_save($node);
   }

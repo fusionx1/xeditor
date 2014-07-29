@@ -5,6 +5,7 @@
 (function ($) {
 
   var baseUrl = Drupal.settings.xeditor_core.base_path;
+  var argZero = Drupal.settings.xeditor_core.arg_zero;
 
   Drupal.xeditor = {
 
@@ -36,7 +37,7 @@
      */
     makeSelection: function(editor, selection) {
       // Grabs the current selection so that we can
-      // reapply it to the editable content in CKE
+      // reapply it to the editable content in CKE.
       var sel = editor.getSelection();
 
       // Change the selection to the current element.
@@ -55,7 +56,7 @@
     },
 
     loadScript: function(url, callback) {
-      // Adding the script tag to the head as suggested before
+      // Adding the script tag to the head as suggested before.
       var head = document.getElementsByTagName('head')[0];
       var script = document.createElement('script');
       script.type = 'text/javascript';
@@ -66,7 +67,7 @@
       script.onreadystatechange = callback;
       script.onload = callback;
 
-      // Fire the loading
+      // Fire the loading.
       head.appendChild(script);
     },
 
@@ -116,7 +117,11 @@
         url: baseUrl + '/ajax-callback',
         type: 'POST',
         dataType: 'JSON',
-        data: { nid: nid, content: html }
+        data: {
+          nid: nid,
+          content: html,
+          arg: argZero
+        }
       });
 
       ajx.fail(function(xhr, status, er) {
@@ -159,21 +164,20 @@
       var that = this;
 
       CKEDITOR.plugins.registered['save'] = {
-       init : function(editor) {
-        var command = editor.addCommand('save', {
+        init : function(editor) {
+          var command = editor.addCommand('save', {
             modes : { wysiwyg:1, source:1 },
             exec : function(editor) {
               var html = editor.getData(),
-               nidAttr = that.getNid($(editor.element.$)),
-                  nid  = that.stripNid(nidAttr);
+              nidAttr  = that.getNid($(editor.element.$)),
+              nid      = that.stripNid(nidAttr);
 
               that.saveContent(nid, html);
             }
-          }
-        );
+          });
 
-        editor.ui.addButton('Save', { label : 'Save changes', command : 'save', toolbar: 'basicstyles,1' });
-       }
+          editor.ui.addButton('Save', { label : 'Save changes', command : 'save', toolbar: 'basicstyles,1' });
+        }
       };
 
       CKEDITOR.on('instanceCreated', function(e) {
