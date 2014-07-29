@@ -111,8 +111,21 @@
       return parseInt(nid.match(/\d{1,}$/g));
     },
 
+    deduceField: function($el) {
+      if (this.shouldBeHandledAsTitle($el)) {
+        return 'TITLE';
+      } else if ($el.hasAncestor('field-name-body')) {
+        return 'BODY';
+      } else if ($el.hasAncestor('field-type-taxonomy-term-reference')) {
+        return 'TAGS';
+      } else {
+        console.warn('Could not deduce what field should be updated.');
+        return null;
+      }
+    },
+
     // TODO: Finish this function
-    saveContent: function(nid, html) {
+    saveContent: function(nid, field, html) {
       var ajx = $.ajax({
         url: baseUrl + '/ajax-callback',
         type: 'POST',
@@ -120,7 +133,9 @@
         data: {
           nid: nid,
           content: html,
-          arg: argZero
+          arg: argZero,
+          field: field,
+          content: html
         }
       });
 
@@ -140,7 +155,8 @@
       var node = $el.closest('.node');
       var id = $el.closest('.node').attr('id');
 
-      // If there's an H1, then there should be only one node id on page.
+      // Checks if there's an H1 on page.
+      // Then there should be only one .node elem.
       if (node.length < 1 && $el.is('h1')) {
         var n = $('.node');
 
@@ -150,12 +166,12 @@
           return false;
         } else {
 
-          // Everything went well..
+          // Seems we found the right node (there was only one).
           return n.attr('id');
         }
       } else {
 
-        // Everything went well..
+        // Seems we could find the correct node without trouble.
         return id;
       }
     },
@@ -169,10 +185,11 @@
             modes : { wysiwyg:1, source:1 },
             exec : function(editor) {
               var html = editor.getData(),
-              nidAttr  = that.getNid($(editor.element.$)),
-              nid      = that.stripNid(nidAttr);
+               nidAttr = that.getNid($(editor.element.$)),
+                 field = that.deduceField($(editor.element.$)),
+                  nid  = that.stripNid(nidAttr);
 
-              that.saveContent(nid, html);
+              that.saveContent(nid, field, html);
             }
           });
 
