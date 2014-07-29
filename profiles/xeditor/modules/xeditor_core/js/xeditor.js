@@ -132,7 +132,6 @@
         dataType: 'JSON',
         data: {
           nid: nid,
-          content: html,
           arg: argZero,
           field: field,
           content: html
