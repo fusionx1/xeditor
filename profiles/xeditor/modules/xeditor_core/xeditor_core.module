@@ -80,37 +80,50 @@ function xeditor_core_menu() {
 
 /**
  * Ajax handler for saving content.
+ *
+ * @TODO:
+ *   1. Get the data bundle in field_config_instance to make the
+ *      demo content type fields editable after installation.
+ *
+ *   2. Create an API to get all fields in a given content type.
  */
 function _xeditor_core_node_save() {
   if (isset($_POST['nid']) && isset($_POST['content'])) {
     $nid = $_POST['nid'];
-    $content = $_POST['content'];
+    $raw_data = $_POST['content'];
+    $field = $_POST['field'];
     // Load node object, bypass the cache system.
     $node = node_load($nid, NULL, TRUE);
     $url_arg = (isset($_POST['arg']) ? $_POST['arg'] : '');
     // Input format.
     $format = filter_format_load('filtered_html');
 
+    // Filter the raw data.
+    $filtered_content = check_markup(
+      $raw_data,
+      $format->format,
+      $langcode = '',
+      $cache = FALSE
+    );
+
     // Create new revision.
     $node->revision = 1;
 
-    if ($url_arg != 'node') {
-      $node->body[$node->language][0]['summary'] = check_markup(
-        $content,
-        $format['format'],
-        $langcode = '',
-        $cache = FALSE
-      );
-      $node->log = "Updated the node - " . filter_xss($node->title, array());
+    if ($field == 'TITLE') {
+      $node->title = $filtered_content;
+    }
+    elseif ($field == 'null') {
+      if ($url_arg != 'node') {
+        $node->body[$node->language][0]['summary'] = $filtered_content;
+        $node->log = "Updated the node - " . filter_xss($node->title, array());
+      }
+      else {
+        $node->body[$node->language][0]['value'] = $filtered_content;
+        $node->log = "Updated the node - " . filter_xss($node->title, array());
+      }
     }
     else {
-      $node->body[$node->language][0]['value'] = check_markup(
-        $content,
-        $format->format,
-        $langcode = '',
-        $cache = FALSE
-      );
-      $node->log = "Updated the node - " . filter_xss($node->title, array());
+      // Fallback.
     }
 
     // Disable pathauto to prevent overwritting of pathalias.

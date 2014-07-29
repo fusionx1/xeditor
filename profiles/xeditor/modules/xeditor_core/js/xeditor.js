@@ -16,12 +16,17 @@
     // Unselects everything in the window
     unselectAll: function() {
       if (window.getSelection) {
-        if (window.getSelection().empty) {  // Chrome
+        // Chrome.
+        if (window.getSelection().empty) {
           window.getSelection().empty();
-        } else if (window.getSelection().removeAllRanges) {  // Firefox
+        }
+        // Firefox.
+        else if (window.getSelection().removeAllRanges) {
           window.getSelection().removeAllRanges();
         }
-      } else if (document.selection) {  // IE?
+      }
+      // IE?
+      else if (document.selection) {
         document.selection.empty();
       }
     },
@@ -132,11 +137,14 @@
     deduceField: function($el) {
       if (this.shouldBeHandledAsTitle($el)) {
         return 'TITLE';
-      } else if ($el.hasAncestor('field-name-body')) {
+      }
+      else if ($el.hasAncestor('field-name-body')) {
         return 'BODY';
-      } else if ($el.hasAncestor('field-type-taxonomy-term-reference')) {
+      }
+      else if ($el.hasAncestor('field-type-taxonomy-term-reference')) {
         return 'TAGS';
-      } else {
+      }
+      else {
         console.warn('Could not deduce what field should be updated.');
         return null;
       }
@@ -181,13 +189,13 @@
         if (n.length > 1) {
           console.warn('Could not find correct node ID. Aborting save.');
           return false;
-        } else {
-
+        }
+        else {
           // Seems we found the right node (there was only one).
           return n.attr('id');
         }
-      } else {
-
+      }
+      else {
         // Seems we could find the correct node without trouble.
         return id;
       }
