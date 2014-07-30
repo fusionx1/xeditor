@@ -106,29 +106,40 @@ function _xeditor_core_node_save() {
       $cache = FALSE
     );
 
+    // Get all the fields.
+    $fields = field_info_instances("node", $node->type);
+
     // Create new revision.
     $node->revision = 1;
-
-    if ($field == 'TITLE') {
-      $node->title = $filtered_content;
-    }
-    elseif ($field == 'null') {
-      if ($url_arg != 'node') {
-        $node->body[$node->language][0]['summary'] = $filtered_content;
-        $node->log = "Updated the node - " . filter_xss($node->title, array());
-      }
-      else {
-        $node->body[$node->language][0]['value'] = $filtered_content;
-        $node->log = "Updated the node - " . filter_xss($node->title, array());
-      }
-    }
-    else {
-      // Fallback.
-    }
-
     // Disable pathauto to prevent overwritting of pathalias.
     $node->path['pathauto'] = FALSE;
 
+    // Unset unnecessary fields to reduce time in saving.
+    foreach ($fields as $key => $cck_field) {
+      if ($field == 'TITLE') {
+        $node->title = $filtered_content;
+        unset($node->$key);
+      }
+      // CCK fiels must used field_attach_update() API for optimize performance.
+      elseif ($field == 'null' && $key == 'body') {
+        if ($url_arg != 'node') {
+          $node->body[$node->language][0]['summary'] = $filtered_content;
+          $node->log = "Updated the node - " . filter_xss($node->title, array());
+        }
+        else {
+          $node->body[$node->language][0]['value'] = $filtered_content;
+          $node->log = "Updated the node - " . filter_xss($node->title, array());
+        }
+
+        // Unset unnecessary fields.
+        if ($key != 'body') {
+          unset($node->$key);
+        }
+      }
+      else {
+        // Fallback.
+      }
+    }
     // Validate the node.
     node_validate($node);
     // Prepares node for saving by populating author and creation date.
