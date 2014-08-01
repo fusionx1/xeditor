@@ -71,13 +71,10 @@ function field_formatter_editable_preprocess_field(&$variables, $hook) {
   $bundle      = $variables['element']['#bundle'];
   $view_mode   = $variables['element']['#view_mode'];
 
-  // Only body field should have Ckeditor.
-  if ($field_name == 'body') {
-    $contenteditable = array('contenteditable' => 'true');
-  }
-  else {
-    $contenteditable = array('contenteditable' => '');
-  }
+  $contenteditable = array(
+    'contenteditable' => 'true',
+    'data-editor-field-id' => filter_xss($field_name, array()),
+  );
 
   // Get field formatter settings.
   $formatter_info = field_formatter_settings_get_instance_display_settings($entity_type, $field_name, $bundle, $view_mode);
