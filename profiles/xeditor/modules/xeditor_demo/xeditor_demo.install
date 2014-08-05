@@ -10,6 +10,53 @@
  */
 function xeditor_demo_install() {
   $t = get_t();
+  // This is an ugly solution but the only way so far to make the fields
+  // available on field_info_instance().
+  try {
+    $views = array('default', 'full', 'teaser');
+    // Fetch an instance info array.
+    foreach ($views as $display) {
+      $instance = field_info_instance('node', 'body', 'every_field');
+      $field = field_read_field($instance['field_name']);
+      // Attempt to capture the error.
+      if (empty($instance['field_name'])) {
+        throw new FieldException($t('Attempt to update an instance of a nonexistent field @field from @type type.', array(
+          '@field' => $instance['field_name'],
+          '@type' => 'every_field',
+        )));
+      }
+
+      // Change a single property in the instance definition.
+      if ($display == 'default' || $display == 'full') {
+        $instance['display'][$display] = array(
+          'label' => 'hidden',
+          'type' => 'text_default',
+          'weight' => '0',
+          'settings' => array(
+            'contenteditable' => 'yes',
+          ),
+          'module' => 'text',
+        );
+      }
+      else {
+        $instance['display'][$display] = array(
+          'label' => 'hidden',
+          'type' => 'text_summary_or_trimmed',
+          'weight' => '0',
+          'settings' => array(
+            'trim_length' => '600',
+            'contenteditable' => 'yes',
+          ),
+          'module' => 'text',
+        );
+      }
+      // Write the changed definition back.
+      field_update_instance($instance);
+    }
+  }
+  catch (Exception $e) {
+    watchdog('xeditor_demo', 'Error for updating field_config_instance is: ' . $e->getMessage(), WATCHDOG_ERROR);
+  }
 
   // Create a new 'every_field' node for testing inline editing.
   $node = new stdClass();

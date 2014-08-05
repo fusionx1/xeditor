@@ -61,6 +61,18 @@ function xeditor_core_init() {
 
 
 /**
+ * Implements hook_entity_info_alter().
+ */
+function xeditor_core_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['full'] = array(
+    // Enabled by default in all node bundles.
+    'label' => t('Full content'),
+    'custom settings' => TRUE,
+  );
+}
+
+
+/**
  * Implements hook_menu().
  */
 function xeditor_core_menu() {
@@ -146,5 +158,16 @@ function _xeditor_core_node_save() {
     node_submit($node);
     // Save node.
     node_save($node);
+  }
+}
+
+
+/**
+ * Get the node id.
+ */
+function node_id_is() {
+  $page_node = menu_get_object();
+  if (isset($page_node->nid)) {
+    return $page_node->nid;
   }
 }

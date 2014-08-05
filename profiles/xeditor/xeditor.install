@@ -452,18 +452,72 @@ function xeditor_install() {
   variable_set('jquery_update_jquery_cdn', 'none');
   variable_set('jquery_update_jquery_version', '1.7');
 
+  // This is an ugly solution but the only way so far to make the fields
+  // available on field_info_instance().
+  try {
+    $views = array('default', 'full', 'teaser');
+    $types = array(
+      'article' => $views,
+      'page' => $views,
+    );
+    $views = array('default', 'full', 'teaser');
+    // Fetch an instance info array.
+    foreach ($types as $type => $displays) {
+      foreach ($displays as $display) {
+        $instance = field_info_instance('node', 'body', $type);
+        $field = field_read_field($instance['field_name']);
+        // Attempt to capture the error.
+        if (empty($instance['field_name'])) {
+          throw new FieldException($t('Attempt to update an instance of a nonexistent field @field from @type type.', array(
+            '@field' => $instance['field_name'],
+            '@type' => $type,
+          )));
+        }
+
+        // Change a single property in the instance definition.
+        if ($display == 'default' || $display == 'full') {
+          $instance['display'][$display] = array(
+            'label' => 'hidden',
+            'type' => 'text_default',
+            'weight' => '0',
+            'settings' => array(
+              'contenteditable' => 'yes',
+            ),
+            'module' => 'text',
+          );
+        }
+        else {
+          $instance['display'][$display] = array(
+            'label' => 'hidden',
+            'type' => 'text_summary_or_trimmed',
+            'weight' => '0',
+            'settings' => array(
+              'trim_length' => '600',
+              'contenteditable' => 'yes',
+            ),
+            'module' => 'text',
+          );
+        }
+        // Write the changed definition back.
+        field_update_instance($instance);
+      }
+    }
+  }
+  catch (Exception $e) {
+    watchdog('xeditor_demo', 'Error for updating field_config_instance is: ' . $e->getMessage(), WATCHDOG_ERROR);
+  }
+
   // Create an "About Us" page, for testing content links in Aloha.
   // @todo: It's really stupid we have to do this here
   // instead of in xeditor_demo module,
   // but 'page' doesn't exist yet when xeditor_demo_install() runs. :(
-
   $node = new stdClass();
   $node->uid = 1;
   $node->language = 'und';
   $node->type = 'page';
   $node->status = 1;
   $node->title = $t('About Us');
-  $node->body['und'][0]['value'] =  $t('<p><a href="@xteam-url" target="_blank">X-Team</a> is a global development team of 100+ carefully chosen specialists. Whether you need help scaling your team or building a new one, <a href="@xteam-url" target="_blank">X-Team</a> is here to help you build the future.</p><p>Content management is rarely a smooth, efficient process when it comes to the process of creating, editing, and publishing new content is. Xeditor was created to make content management easier, more fun, and more efficient than ever.', array('@xteam-url' => "http://x-team.com"));
+  $node->body['und'][0]['value'] = $t('<p><a href="@xteam-url" target="_blank">X-Team</a> is a global development team of 100+ carefully chosen specialists. Whether you need help scaling your team or building a new one, <a href="@xteam-url" target="_blank">X-Team</a> is here to help you build the future.</p><p>Content management is rarely a smooth, efficient process when it comes to the process of creating, editing, and publishing new content is. Xeditor was created to make content management easier, more fun, and more efficient than ever.', array('@xteam-url' => "http://x-team.com"));
   $node->body['und'][0]['format'] = 'filtered_html';
   $node->menu = array(
     'enabled' => 1,

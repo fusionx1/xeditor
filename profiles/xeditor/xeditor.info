@@ -80,5 +80,3 @@ dependencies[] = responsive_preview
 dependencies[] = diff
 dependencies[] = insert
 dependencies[] = xeditor_demo
-dependencies[] = xeditor_core
-dependencies[] = field_formatter_editable

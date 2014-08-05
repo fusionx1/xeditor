@@ -70,10 +70,12 @@ function field_formatter_editable_preprocess_field(&$variables, $hook) {
   $field_name  = $variables['element']['#field_name'];
   $bundle      = $variables['element']['#bundle'];
   $view_mode   = $variables['element']['#view_mode'];
+  $nid         = $variables['element']['#object']->nid;
 
   $contenteditable = array(
     'contenteditable' => 'true',
-    'data-editor-field-id' => filter_xss($field_name, array()),
+    'data-editor-field-id' => $nid,
+    'data-edit-field-type' => filter_xss($field_name, array()),
   );
 
   // Get field formatter settings.
