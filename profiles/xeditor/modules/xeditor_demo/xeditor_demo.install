@@ -75,7 +75,7 @@ function xeditor_demo_install() {
   Please take a look around! Within, you will find such nifty features as:
 
   <ul>
-    <li><strong>Inline Editing</strong>, courtesy of <a href="@module-edit-url">Edit module</a>. Simply click into this node, log in as an admin, then click the "Quick Edit" link in the sidebar. From there you can click directly into any field to edit its contents. Including this one! For fancier fields like boolean and multivalue, you get just edit the form field directly. Try it out!</li>
+    <li><strong>Inline Editing</strong>, courtesy of <a href="@module-ffe-url">Field Formatter Editable module</a>. Simply click into this node, log in as an admin, then click the "Quick Edit" link in the sidebar. From there you can click directly into any field to edit its contents. Including this one! For fancier fields like boolean and multivalue, you get just edit the form field directly. Try it out!</li>
     <li><strong>"True" WYSIWYG</strong>, courtesy of <a href="@ckeditor-url">CKEditor v4</a>. Edit your rich text with your theme\'s direct styling through the inline editor. Support for images, tables, paste from Word, and more. :)</li>
     <li><strong>Responsive Layout Builder</strong>, courtesy of the <a href="@module-layout-url">Layout</a> and <a href="@module-grid-url">Gridbuilder</a> modules. It layers on top of Panels (though is architected so it could work on other layout solutions as well). If you want to try it, as an admin go to <a href="@admin-layout-url">Structure &gt; Panels &gt; Custom Layout</a>. You can configure layouts for separate breakpoints (e.g. Mobile, Tablet, Desktop) and even define your own grids. These layouts and grids are all CTools exportable, and become layouts you can use in your Panels pages!</li>
     <li><strong>New admin theme</strong>, brought to you by <a href="@theme-ember-url">Ember</a>. This brings some nice light styling on Drupal core\'s Seven admin theme as well as a mobile-friendly toolbar courtesy of the Admin module. This functionality is still a bit rough, but we\'re actively working on it right now!</li>
@@ -83,7 +83,7 @@ function xeditor_demo_install() {
 
   We hope you enjoy playing with Xeditor! We greatly welcome collaboration; join us in the <a href="@xeditor-issues-url">issue queue</a>!', array(
     '@xeditor-issues-url' => 'http://drupal.org/project/issues/xeditor',
-    '@module-edit-url' => 'http://drupal.org/project/edit',
+    '@module-ffe-url' => 'https://www.drupal.org/sandbox/techwarrior/2309835',
     '@module-layout-url' => 'http://drupal.org/project/layout',
     '@module-grid-url' => 'http://drupal.org/project/gridbuilder',
     '@theme-ember-url' => 'http://drupal.org/project/ember',
