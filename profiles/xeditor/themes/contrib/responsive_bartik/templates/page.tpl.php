@@ -87,7 +87,7 @@
  * @ingroup themeable
  */
 ?>
-<div id="page-wrapper"><div id="page">
+<div id="page-wrapper"><div id="page"><div class="top-right"></div>
 
   <header id="header" role="banner" class="<?php print $secondary_menu ? 'with-secondary-menu': 'without-secondary-menu'; ?>"><div class="section clearfix">
     <?php if ($secondary_menu): ?>
