@@ -36,6 +36,7 @@ function xeditor_core_init() {
     $counter++;
   }
 
+
   // Pre-load the ckeditor.js for manipulating user selection.
   if (!in_array('profiles/xeditor/libraries/ckeditor/ckeditor.js', $scripts)) {
     drupal_add_js('profiles/xeditor/libraries/ckeditor/ckeditor.js', array(
@@ -45,6 +46,17 @@ function xeditor_core_init() {
       'weight' => -3,
     ));
   }
+
+  // Pre-load the jgrowl alert.
+  if (!in_array('profiles/xeditor/libraries/jgrowl/jquery.jgrowl.js', $scripts)) {
+    drupal_add_js('profiles/xeditor/libraries/jgrowl/jquery.jgrowl.js', array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'every_page' => TRUE,
+        'weight' => -4,
+    ));
+  }
+
   // CSS file for Barley-like feel.
   drupal_add_css(drupal_get_path('module', 'xeditor_core') . '/css/xeditor.css');
 
