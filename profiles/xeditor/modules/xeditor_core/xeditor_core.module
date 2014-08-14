@@ -17,6 +17,10 @@ function xeditor_core_init() {
   // Get all loaded javascript.
   $scripts = drupal_add_js();
 
+  // Pass the User-defined Ckeditor plugins to Drupal.behaviors.
+  $data = field_formatter_editable_get_ckeditor_plugin();
+  ckeditor_get_user_plugins_to_bahaviors($data);
+
   // Extend edit module edit.js functionality.
   $js_files = array(
     'xeditor.js',
@@ -159,6 +163,62 @@ function _xeditor_core_node_save() {
     // Save node.
     node_save($node);
   }
+}
+
+
+/**
+ * Assemble the plugins to json format and pass to Drupal.settings.
+ */
+function ckeditor_get_user_plugins_to_bahaviors($data) {
+  $ck_settings = unserialize($data['settings']);
+  $ck_plugins = $ck_settings['toolbar'];
+
+  // Remove all spaces, commas, left square brackets, and right square brackets.
+  $toolbar = preg_split("/[\s,\[\]']+/", $ck_plugins);
+
+  // Get the length of the toolbar array.
+  $length = count($toolbar);
+
+  // Delete the first and last elements since they're empty.
+  unset($toolbar[0]);
+  unset($toolbar[$length-1]);
+
+  $input_json = array();
+
+  // Get the values of the toolbar array.
+  // Set to a new array key. This key will be used by JSON parser later on.
+  $input_json['plugins'] = array_values($toolbar);
+
+  // Encode the arrays.
+  $to_json =  json_encode($input_json);
+  // Pass the json encoded plugins to Javascript.
+  drupal_add_js(array('ck_toolbar' => array('plugins' => $to_json)), 'setting');
+}
+
+
+/**
+ * Get the User-defined Ckeditor plugins.
+ */
+function field_formatter_editable_get_ckeditor_plugin($reset = FALSE) {
+  static $cached_data;
+  cache_clear_all('field_formatter_editable_data', 'cache', TRUE);
+  if (!isset($cached_data) || $reset) {
+    if (!$reset && ($cache = cache_get('field_formatter_editable_data')) && !empty($cache->data)) {
+      $cached_data = unserialize($cache->data);
+    }
+    else {
+      // Do your expensive calculations here, and populate $cached_data
+      // with the correct stuff..
+      $cached_data = db_select('ckeditor_settings', 'cs')
+           ->fields('cs', array('settings'))
+           ->condition('name', 'Advanced', '=')
+           ->execute()
+           ->fetchAssoc();
+
+      cache_set('field_formatter_editable_data', serialize($cached_data), 'cache');
+    }
+  }
+  return $cached_data;
 }
 
 
