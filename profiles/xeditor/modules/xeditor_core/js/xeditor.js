@@ -201,6 +201,15 @@
       }
     },
 
+    statusNotification: function(nid, field) {
+        $('.top-right').jGrowl("Content has been updated successfully!.", {
+            theme: 'smoke',
+            closer: false,
+            life: 5000,
+        });
+        //nid and field attributes will be used for specific fields
+    },
+
     applyCKEEvents: function() {
       var that = this;
 
@@ -220,6 +229,7 @@
               editor.fire('blur');
               that.unselectAll();
               that.focusDefault();
+              that.statusNotification(nid, field);
             }
           });
 
