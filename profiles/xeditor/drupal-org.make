@@ -127,3 +127,6 @@ libraries[backbone][download][url] = https://github.com/jashkenas/backbone/archi
 
 libraries[modernizr][download][type] = "get"
 libraries[modernizr][download][url] = "https://github.com/Modernizr/Modernizr/archive/v2.7.0.tar.gz"
+
+libraries[jgrowl][download][type] = "get"
+libraries[jgrowl][download][url] = https://github.com/stanlemon/jGrowl/archive/d38061284a2ff8ef9521851289d580d36b1e282b.zip
