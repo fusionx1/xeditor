@@ -1785,3 +1785,79 @@ a#menu-toggle:after {
   clip: rect(1px, 1px, 1px, 1px);
   left: 0;
 }
+
+
+
+/*-----------------------------------------------------------*/
+
+div.jGrowl div.manilla {
+    background-color: 		#FFF1C2;
+    color: 					navy;
+}
+
+
+
+div.jGrowl div.smoke {
+    background: url(../images/smoke.png) no-repeat transparent;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    width: 280px;
+    height: 55px;
+    overflow: hidden;
+    border-color: #fff;
+    color: #fff;
+    padding: 1px;
+}
+
+div.jGrowl div.flora {
+    background: 			#E6F7D4 url(flora-notification.png) no-repeat;
+    -moz-border-radius: 	0px;
+    -webkit-border-radius:	0px;
+    opacity: 				1;
+    filter: 				alpha(opacity = 100);
+    width: 					270px;
+    height: 				90px;
+    padding: 				0px;
+    overflow: 				hidden;
+    border-color: 			#5ab500;
+}
+
+div.jGrowl div.flora div.message {
+    padding: 				5px;
+    color: 					#000;
+}
+
+div.jGrowl div.flora div.header {
+    background: 			url(flora-header.png) no-repeat;
+    padding: 				5px;
+}
+
+div.jGrowl div.flora div.close {
+    background: 			url(flora-close.png) no-repeat;
+    padding: 				5px;
+    color: 					transparent;
+    padding: 				0px;
+    margin: 				5px;
+    width:					17px;
+}
+
+
+
+div#random {
+    width: 					1000px;
+    background-color: 		red;
+    line-height: 			60px;
+}
+
+.top-right {
+    right: 0px;
+    top: 0px;
+}
+div.jGrowl {
+    z-index: 9999;
+    color: #fff;
+    font-size: 12px;
+    position: fixed;
+}
+
+
