@@ -60,6 +60,19 @@ function field_formatter_editable_field_formatter_settings_form_alter(&$settings
 
 
 /**
+ * Implements hook_permission().
+ */
+function field_formatter_editable_permission() {
+  return array(
+    'access contenteditable' => array(
+      'title' => t('Access inline edit'),
+      'description' => t('Allow users to access inline edit.'),
+    ),
+  );
+}
+
+
+/**
  * Implements hook_preprocess_field().
  *
  * Adds a contenteditable attribute to the field's attributes_array
@@ -72,18 +85,20 @@ function field_formatter_editable_preprocess_field(&$variables, $hook) {
   $view_mode   = $variables['element']['#view_mode'];
   $nid         = $variables['element']['#object']->nid;
 
-  $contenteditable = array(
-    'contenteditable' => 'true',
-    'data-editor-field-id' => $nid,
-    'data-edit-field-type' => filter_xss($field_name, array()),
-  );
+  if (user_is_logged_in() && user_access('access contenteditable')) {
+    $contenteditable = array(
+      'contenteditable' => 'true',
+      'data-editor-field-id' => $nid,
+      'data-edit-field-type' => filter_xss($field_name, array()),
+    );
 
-  // Get field formatter settings.
-  $formatter_info = field_formatter_settings_get_instance_display_settings($entity_type, $field_name, $bundle, $view_mode);
+    // Get field formatter settings.
+    $formatter_info = field_formatter_settings_get_instance_display_settings($entity_type, $field_name, $bundle, $view_mode);
 
-  // Add attitribute for whole fields.
-  if ($formatter_info['contenteditable'] === 'yes') {
-    $variables += array('attributes_array' => array());
-    $variables['attributes_array'] = drupal_array_merge_deep($variables['attributes_array'], $contenteditable);
+    // Add attitribute for whole fields.
+    if ($formatter_info['contenteditable'] === 'yes') {
+      $variables += array('attributes_array' => array());
+      $variables['attributes_array'] = drupal_array_merge_deep($variables['attributes_array'], $contenteditable);
+    }
   }
 }

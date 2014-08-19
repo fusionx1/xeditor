@@ -36,7 +36,6 @@ function xeditor_core_init() {
     $counter++;
   }
 
-
   // Pre-load the ckeditor.js for manipulating user selection.
   if (!in_array('profiles/xeditor/libraries/ckeditor/ckeditor.js', $scripts)) {
     drupal_add_js('profiles/xeditor/libraries/ckeditor/ckeditor.js', array(
@@ -92,7 +91,7 @@ function xeditor_core_menu() {
 
   $items['ajax-callback'] = array(
     'description' => 'Ajax handler for creating and editing of node.',
-    'access arguments' => array('administer nodes'),
+    'access arguments' => array('access contenteditable'),
     'page callback' => '_xeditor_core_node_save',
     'title' => 'AJAX Handler',
     'type' => MENU_CALLBACK,
