@@ -14,60 +14,71 @@ function xeditor_core_init() {
   $current_menu = menu_get_item();
   $menu_arg = $current_menu['original_map'];
 
-  // Get all loaded javascript.
-  $scripts = drupal_add_js();
+  if (!path_is_admin(current_path())) {
+    // Get all loaded javascript.
+    $scripts = drupal_add_js();
 
-  // Extend edit module edit.js functionality.
-  $js_files = array(
-    'xeditor.js',
-    'xeditor_core.js',
-    'jquery.selection.js',
-    'jquery.extends.js',
-  );
-  $js_dir = drupal_get_path('module', 'xeditor_core') . '/js/';
-  $counter = 1;
-  foreach ($js_files as $js_file) {
-    drupal_add_js($js_dir . $js_file, array(
-      'scope' => 'footer',
-      'group' => JS_THEME,
-      'every_page' => TRUE,
-      'weight' => -$counter,
-    ));
-    $counter++;
-  }
-
-  // Pre-load the ckeditor.js for manipulating user selection.
-  if (!in_array('profiles/xeditor/libraries/ckeditor/ckeditor.js', $scripts)) {
-    drupal_add_js('profiles/xeditor/libraries/ckeditor/ckeditor.js', array(
-      'scope' => 'footer',
-      'group' => JS_THEME,
-      'every_page' => TRUE,
-      'weight' => -3,
-    ));
-  }
-
-  // Pre-load the jgrowl alert.
-  if (!in_array('profiles/xeditor/libraries/jgrowl/jquery.jgrowl.js', $scripts)) {
-    drupal_add_js('profiles/xeditor/libraries/jgrowl/jquery.jgrowl.js', array(
+    // Extend edit module edit.js functionality.
+    $js_files = array(
+      'xeditor.js',
+      'xeditor_core.js',
+      'jquery.selection.js',
+      'jquery.extends.js',
+    );
+    $js_dir = drupal_get_path('module', 'xeditor_core') . '/js/';
+    $counter = 1;
+    foreach ($js_files as $js_file) {
+      drupal_add_js($js_dir . $js_file, array(
         'scope' => 'footer',
         'group' => JS_THEME,
         'every_page' => TRUE,
-        'weight' => -4,
-    ));
+        'weight' => -$counter,
+      ));
+      $counter++;
+    }
+
+    if (module_exists('libraries')) {
+      $libraries = libraries_get_libraries();
+      // Pre-load the Ckeditor for Inline editing.
+      if (array_key_exists('ckeditor', $libraries)) {
+        $ck_path = $libraries['ckeditor'];
+        if (!in_array($ck_path . '/ckeditor.js', $scripts)) {
+          drupal_add_js($ck_path . '/ckeditor.js', array(
+            'scope' => 'footer',
+            'group' => JS_THEME,
+            'every_page' => TRUE,
+            'weight' => -3,
+          ));
+        }
+      }
+
+      // Pre-load the jgrowl alert.
+      if (array_key_exists('jgrowl', $libraries)) {
+        $jgrowl_path = $libraries['jgrowl'];
+        if (!in_array($jgrowl_path . '/jquery.jgrowl.js', $scripts)) {
+          drupal_add_js($jgrowl_path . '/jquery.jgrowl.js', array(
+              'scope' => 'footer',
+              'group' => JS_THEME,
+              'every_page' => TRUE,
+              'weight' => -4,
+          ));
+        }
+      }
+    }
+
+    // CSS file for Barley-like feel.
+    drupal_add_css(drupal_get_path('module', 'xeditor_core') . '/css/xeditor.css');
+
+    // Make sure that base_url is available on xeditor.js.
+    drupal_add_js(array(
+      'xeditor_core' => array('base_path' => $base_url),
+    ), 'setting');
+
+    // Get the arg 0.
+    drupal_add_js(array(
+      'xeditor_core' => array('arg_zero' => $menu_arg[0]),
+    ), 'setting');
   }
-
-  // CSS file for Barley-like feel.
-  drupal_add_css(drupal_get_path('module', 'xeditor_core') . '/css/xeditor.css');
-
-  // Make sure that base_url is available on xeditor.js.
-  drupal_add_js(array(
-    'xeditor_core' => array('base_path' => $base_url),
-  ), 'setting');
-
-  // Get the arg 0.
-  drupal_add_js(array(
-    'xeditor_core' => array('arg_zero' => $menu_arg[0]),
-  ), 'setting');
 }
 
 
