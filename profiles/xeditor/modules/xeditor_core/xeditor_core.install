@@ -11,4 +11,6 @@ function xeditor_core_install() {
   // Set the CSS selector to be float.
   // This should be the wrapper of Navigation menu.
   variable_set('floating_blocks', array("#block-system-navigation" => array()));
+  // Set the default jQuery version to 1.7 due to issue in inline editing.
+  variable_set('jquery_update_jquery_version', '1.7');
 }
