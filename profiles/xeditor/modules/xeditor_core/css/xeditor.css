@@ -39,3 +39,9 @@
   height: 38px;
   width: 38px;
 }
+
+/* Ckeditor styling override */
+#overlay div.sortableList div.sortableListDiv,
+#overlay div.sortableList div.sortableListDiv span.sortableListSpan ul {
+  width: 784px;
+}
