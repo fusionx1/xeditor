@@ -123,11 +123,30 @@
         { name: 'clipboard',  groups: [ 'selection', 'clipboard' ] },
         { name: 'about' }
       ];
+      editor.ui.addButton('Save', { label : 'Save changes', command : 'save', toolbar: 'basicstyles,1' });
     },
 
     shouldBeHandledAsTitle: function($el) {
       var titles = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
       return ($el.is(titles) || $el.hasAncestor(titles));
+    },
+
+    setBodySettings: function(editor) {
+      console.warn('Setting body settings for CKE');
+
+      // Convert type to object.
+      var toolbar = $.parseJSON(Drupal.settings.ck_toolbar.plugins);
+
+      // Associate the user-defined plugins.
+      // Uncomment the below lines to enable the user-defined toolbar.
+      //editor.config.toolbar = [
+      //    toolbar
+      //];
+    },
+
+    shouldBeHandledAsBody: function($el) {
+      var body = ['div', 'div.field-name-body'];
+      return ($el.is(body) || $el.hasAncestor(body));
     },
 
     stripNid: function(nid) {
@@ -138,7 +157,7 @@
       if (this.shouldBeHandledAsTitle($el)) {
         return 'TITLE';
       }
-      else if ($el.hasAncestor('field-name-body')) {
+      else if (this.shouldBeHandledAsBody($el)) {
         return 'BODY';
       }
       else if ($el.hasAncestor('field-type-taxonomy-term-reference')) {
@@ -244,6 +263,12 @@
         if (Drupal.xeditor.shouldBeHandledAsTitle($(element.$))) {
           editor.on('configLoaded', function() {
             that.setTitleSettings(editor);
+          });
+        }
+
+        if (Drupal.xeditor.shouldBeHandledAsBody($(element.$))) {
+          editor.on('configLoaded', function() {
+            that.setBodySettings(editor);
           });
         }
 

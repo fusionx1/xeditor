@@ -22,7 +22,7 @@ function xeditor_core_init() {
     $scripts = drupal_add_js();
 
     // Pass the User-defined Ckeditor plugins to Drupal.behaviors.
-    $data = field_formatter_editable_get_ckeditor_plugin();
+    $data = xeditor_core_get_ckeditor_plugin();
     ckeditor_get_user_plugins_to_bahaviors($data);
 
     // Extend edit module edit.js functionality.
@@ -188,6 +188,9 @@ function _xeditor_core_node_save() {
     // Save node.
     node_save($node);
   }
+  else {
+    // @TODO: Pass a message to jGrowl to notify user about the action.
+  }
 }
 
 
@@ -212,7 +215,7 @@ function ckeditor_get_user_plugins_to_bahaviors($data) {
 
   // Get the values of the toolbar array.
   // Set to a new array key. This key will be used by JSON parser later on.
-  $input_json['plugins'] = array_values($toolbar);
+  $input_json = array_values($toolbar);
 
   // Encode the arrays.
   $to_json = json_encode($input_json);
@@ -224,11 +227,11 @@ function ckeditor_get_user_plugins_to_bahaviors($data) {
 /**
  * Get the User-defined Ckeditor plugins.
  */
-function field_formatter_editable_get_ckeditor_plugin($reset = FALSE) {
+function xeditor_core_get_ckeditor_plugin($reset = FALSE) {
   static $cached_data;
-  cache_clear_all('field_formatter_editable_data', 'cache', TRUE);
+  cache_clear_all('xeditor_core_data', 'cache', TRUE);
   if (!isset($cached_data) || $reset) {
-    if (!$reset && ($cache = cache_get('field_formatter_editable_data')) && !empty($cache->data)) {
+    if (!$reset && ($cache = cache_get('xeditor_core_data')) && !empty($cache->data)) {
       $cached_data = unserialize($cache->data);
     }
     else {
@@ -240,7 +243,7 @@ function field_formatter_editable_get_ckeditor_plugin($reset = FALSE) {
            ->execute()
            ->fetchAssoc();
 
-      cache_set('field_formatter_editable_data', serialize($cached_data), 'cache');
+      cache_set('xeditor_core_data', serialize($cached_data), 'cache');
     }
   }
   return $cached_data;
