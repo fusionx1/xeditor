@@ -10,106 +10,6 @@
   border: none;
 }
 
-.edit-form-container .edit-form {
-  max-width: 100%;
-  width: 100%;
-}
-
-.edit-form-container .edit-form form {
-  padding: 0;
-  margin: 0;
-  width: 694px;
-}
-
-.edit-form-container .edit-form .form-wrapper {
-  margin: 0;
-}
-
-.edit-init-processed article .content {
-  width: 694px;
-}
-
-article .edit-form.edit-highlighted,
-article .edit-field.edit-editable,
-.edit-field .edit-editable {
-  box-shadow: none;
-}
-
-#edit-entity-toolbar .edit-toolbar-label,
-#edit-field-form #edit-body-und-0-format {
-  display: none;
-}
-
-.region-page-bottom div#panels-ipe-control-container {
-  position: relative;
-}
-
-#edit-entity-toolbar .edit-toolgroup.ops {
-  float: left;
-}
-
-#edit-entity-toolbar.edit .icon-pencil {
-  margin-left: 0;
-  padding-left: 0;
-}
-
-#edit-entity-toolbar.edit {
-  left: 387px !important;
-  max-width: 152px !important;
-  min-width: 152px !important;
-  top: 238px !important;
-  width: 152px !important;
-  z-index: 9999999;
-}
-
-.page-node #edit-entity-toolbar.edit {
-  left: 363px !important;
-  max-width: 947px !important;
-  min-width: 900px !important;
-  top: 215px !important;
-  width: 947px !important;
-}
-
-#edit-entity-toolbar .edit-toolgroup.ops {
-  position: absolute;
-  top: 8px;
-}
-
-#edit-entity-toolbar.edit-toolbar-container > .edit-toolbar-pointer {
-  bottom: 0;
-  box-shadow: none;
-  display: block;
-  height: 0;
-  left: 0;
-  position: absolute;
-  width: 0;
-  z-index: 1;
-}
-
-#edit-entity-toolbar .edit-toolbar-container > .edit-toolbar-lining {
-  bottom: 0;
-  box-shadow: none;
-  display: block;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 0;
-}
-
-#edit-entity-toolbar.edit .icon-pencil:before {
-  background-image: none;
-  background-size: 0;
-}
-
-#edit-entity-toolbar.edit-toolbar-container > .edit-toolbar-content {
-  background-image: none;
-}
-
-#edit-entity-toolbar.edit-toolbar-container > .edit-toolbar-lining {
-  box-shadow: none;
-}
-
 /* Fix for missing close button - Override Ember CSS */
 #overlay #overlay-titlebar {
   display: block;
@@ -140,32 +40,8 @@ article .edit-field.edit-editable,
   width: 38px;
 }
 
-#edit-entity-toolbar.edit .icon-close:before {
-  background: transparent url("../images/close-button-md.png") no-repeat center center;
-  background-size: 28px 28px;
-  height: 38px;
-  width: 38px;
-  top: 0;
-}
-
-#edit-entity-toolbar.edit .icon {
-  min-height: 38px;
-  min-width: 38px;
-  position: relative;
-}
-
-#edit-entity-toolbar .edit-toolbar-content > .edit-toolbar-entity {
-  background: #000;
-  bottom: 0;
-  height: 52px;
-  left: 0;
-  opacity: 0.6;
-  padding-left: 245px;
-  position: fixed;
-  width: 100%;
-}
-
-#edit-entity-toolbar .edit-toolbar-content .edit-toolbar-field {
-  top: 41px;
-  position: absolute;
+/* Ckeditor styling override */
+#overlay div.sortableList div.sortableListDiv,
+#overlay div.sortableList div.sortableListDiv span.sortableListSpan ul {
+  width: 784px;
 }
