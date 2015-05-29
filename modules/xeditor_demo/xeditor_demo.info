@@ -1,0 +1,6 @@
+name = Xeditor Demo
+description = Demo content for the Xeditor distribution.
+core = 7.x
+package = Xeditor
+dependencies[] = panels
+dependencies[] = xeditor_core

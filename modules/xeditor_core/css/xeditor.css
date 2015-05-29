@@ -1,0 +1,47 @@
+/**
+ * xEditor styling.
+ */
+.node-form .droppable,
+.node-form div.image-widget-data {
+  float: none;
+}
+
+.node-form .droppable.dropped {
+  border: none;
+}
+
+/* Fix for missing close button - Override Ember CSS */
+#overlay #overlay-titlebar {
+  display: block;
+}
+
+#overlay-titlebar #overlay-title-wrapper {
+  display: none;
+}
+
+#overlay #overlay-tabs li.active a,
+#overlay #overlay-tabs li.active a.active {
+  background-color: #303030;
+  color: #fff;
+  margin-bottom: 0;
+  padding-bottom: 2px;
+}
+
+#overlay #overlay-tabs li a {
+  background-color: #303030;
+  color: #eee;
+}
+
+#overlay #overlay-close {
+  background: #303030 url("../images/close-button-md.png") no-repeat center center;
+  background-size: 28px 28px;
+  border-radius: 0 20px 20px 0;
+  height: 38px;
+  width: 38px;
+}
+
+/* Ckeditor styling override */
+#overlay div.sortableList div.sortableListDiv,
+#overlay div.sortableList div.sortableListDiv span.sortableListSpan ul {
+  width: 784px;
+}

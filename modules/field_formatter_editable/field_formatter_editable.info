@@ -1,0 +1,6 @@
+name = Field Formatter Editable
+description = "Allows editable fields for field formatters."
+core = 7.x
+package = Fields
+dependencies[] = field
+dependencies[] = field_formatter_settings

@@ -1,0 +1,261 @@
+<?php
+/**
+ * @file
+ * Xeditor module file.
+ */
+
+/**
+ * Implements hook_init().
+ */
+function xeditor_core_init() {
+  global $base_url;
+
+  // Get menu map.
+  $current_menu = menu_get_item();
+  $menu_arg = $current_menu['original_map'];
+
+  // Styling enhancements.
+  drupal_add_css(drupal_get_path('module', 'xeditor_core') . '/css/xeditor.css');
+
+  if (!path_is_admin(current_path())) {
+    // Get all loaded javascript.
+    $scripts = drupal_add_js();
+
+    // Pass the User-defined Ckeditor plugins to Drupal.behaviors.
+    $data = xeditor_core_get_ckeditor_plugin();
+    ckeditor_get_user_plugins_to_bahaviors($data);
+
+    // Extend edit module edit.js functionality.
+    $js_files = array(
+      'xeditor.js',
+      'xeditor_core.js',
+      'jquery.selection.js',
+      'jquery.extends.js',
+    );
+    $js_dir = drupal_get_path('module', 'xeditor_core') . '/js/';
+    $counter = 1;
+    foreach ($js_files as $js_file) {
+      drupal_add_js($js_dir . $js_file, array(
+        'scope' => 'footer',
+        'group' => JS_THEME,
+        'every_page' => TRUE,
+        'weight' => -$counter,
+      ));
+      $counter++;
+    }
+
+    if (module_exists('libraries')) {
+      $libraries = libraries_get_libraries();
+      // Pre-load the Ckeditor for Inline editing.
+      if (array_key_exists('ckeditor', $libraries)) {
+        $ck_path = $libraries['ckeditor'];
+        if (!in_array($ck_path . '/ckeditor.js', $scripts)) {
+          drupal_add_js($ck_path . '/ckeditor.js', array(
+            'scope' => 'footer',
+            'group' => JS_THEME,
+            'every_page' => TRUE,
+            'weight' => -3,
+          ));
+        }
+      }
+
+      // Pre-load the jgrowl alert.
+      if (array_key_exists('jgrowl', $libraries)) {
+        $jgrowl_path = $libraries['jgrowl'];
+        if (!in_array($jgrowl_path . '/jquery.jgrowl.js', $scripts)) {
+          drupal_add_js($jgrowl_path . '/jquery.jgrowl.js', array(
+              'scope' => 'footer',
+              'group' => JS_THEME,
+              'every_page' => TRUE,
+              'weight' => -4,
+          ));
+        }
+      }
+    }
+
+    // CSS file for Barley-like feel.
+    drupal_add_css(drupal_get_path('module', 'xeditor_core') . '/css/xeditor.css');
+
+    // Make sure that base_url is available on xeditor.js.
+    drupal_add_js(array(
+      'xeditor_core' => array('base_path' => $base_url),
+    ), 'setting');
+
+    // Get the arg 0.
+    drupal_add_js(array(
+      'xeditor_core' => array('arg_zero' => $menu_arg[0]),
+    ), 'setting');
+  }
+}
+
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function xeditor_core_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['full'] = array(
+    // Enabled by default in all node bundles.
+    'label' => t('Full content'),
+    'custom settings' => TRUE,
+  );
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function xeditor_core_menu() {
+  $items = array();
+
+  $items['ajax-callback'] = array(
+    'description' => 'Ajax handler for creating and editing of node.',
+    'access arguments' => array('access contenteditable'),
+    'page callback' => '_xeditor_core_node_save',
+    'title' => 'AJAX Handler',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Ajax handler for saving content.
+ *
+ * @TODO:
+ *   1. Get the data bundle in field_config_instance to make the
+ *      demo content type fields editable after installation.
+ *
+ *   2. Create an API to get all fields in a given content type.
+ */
+function _xeditor_core_node_save() {
+  if (isset($_POST['nid']) && isset($_POST['content'])) {
+    $nid = $_POST['nid'];
+    $raw_data = $_POST['content'];
+    $field = $_POST['field'];
+    // Load node object, bypass the cache system.
+    $node = node_load($nid, NULL, TRUE);
+    $url_arg = (isset($_POST['arg']) ? $_POST['arg'] : '');
+    // Input format.
+    $format = filter_format_load('filtered_html');
+
+    // Filter the raw data.
+    $filtered_content = check_markup(
+      $raw_data,
+      $format->format,
+      $langcode = '',
+      $cache = FALSE
+    );
+
+    // Get all the fields.
+    $fields = field_info_instances("node", $node->type);
+
+    // Create new revision.
+    $node->revision = 1;
+    // Disable pathauto to prevent overwritting of pathalias.
+    $node->path['pathauto'] = FALSE;
+
+    // Unset unnecessary fields to reduce time in saving.
+    foreach ($fields as $key => $cck_field) {
+      if ($field == 'TITLE') {
+        $node->title = $filtered_content;
+        unset($node->$key);
+      }
+      // CCK fiels must used field_attach_update() API for optimize performance.
+      elseif ($field == 'null' && $key == 'body') {
+        if ($url_arg != 'node') {
+          $node->body[$node->language][0]['summary'] = $filtered_content;
+          $node->log = "Updated the node - " . filter_xss($node->title, array());
+        }
+        else {
+          $node->body[$node->language][0]['value'] = $filtered_content;
+          $node->log = "Updated the node - " . filter_xss($node->title, array());
+        }
+
+        // Unset unnecessary fields.
+        if ($key != 'body') {
+          unset($node->$key);
+        }
+      }
+      else {
+        // Fallback.
+      }
+    }
+    // Validate the node.
+    node_validate($node);
+    // Prepares node for saving by populating author and creation date.
+    node_submit($node);
+    // Save node.
+    node_save($node);
+  }
+  else {
+    // @TODO: Pass a message to jGrowl to notify user about the action.
+  }
+}
+
+
+/**
+ * Assemble the plugins to json format and pass to Drupal.settings.
+ */
+function ckeditor_get_user_plugins_to_bahaviors($data) {
+  $ck_settings = unserialize($data['settings']);
+  $ck_plugins = $ck_settings['toolbar'];
+
+  // Remove all spaces, commas, left square brackets, and right square brackets.
+  $toolbar = preg_split("/[\s,\[\]']+/", $ck_plugins);
+
+  // Get the length of the toolbar array.
+  $length = count($toolbar);
+
+  // Delete the first and last elements since they're empty.
+  unset($toolbar[0]);
+  unset($toolbar[$length - 1]);
+
+  $input_json = array();
+
+  // Get the values of the toolbar array.
+  // Set to a new array key. This key will be used by JSON parser later on.
+  $input_json = array_values($toolbar);
+
+  // Encode the arrays.
+  $to_json = json_encode($input_json);
+  // Pass the json encoded plugins to Javascript.
+  drupal_add_js(array('ck_toolbar' => array('plugins' => $to_json)), 'setting');
+}
+
+
+/**
+ * Get the User-defined Ckeditor plugins.
+ */
+function xeditor_core_get_ckeditor_plugin($reset = FALSE) {
+  static $cached_data;
+  cache_clear_all('xeditor_core_data', 'cache', TRUE);
+  if (!isset($cached_data) || $reset) {
+    if (!$reset && ($cache = cache_get('xeditor_core_data')) && !empty($cache->data)) {
+      $cached_data = unserialize($cache->data);
+    }
+    else {
+      // Do your expensive calculations here, and populate $cached_data
+      // with the correct stuff..
+      $cached_data = db_select('ckeditor_settings', 'cs')
+           ->fields('cs', array('settings'))
+           ->condition('name', 'Advanced', '=')
+           ->execute()
+           ->fetchAssoc();
+
+      cache_set('xeditor_core_data', serialize($cached_data), 'cache');
+    }
+  }
+  return $cached_data;
+}
+
+
+/**
+ * Get the node id.
+ */
+function node_id_is() {
+  $page_node = menu_get_object();
+  if (isset($page_node->nid)) {
+    return $page_node->nid;
+  }
+}

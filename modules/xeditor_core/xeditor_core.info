@@ -1,0 +1,6 @@
+name = Xeditor Core
+description = Awesome Drupal editor
+core = 7.x
+package = XEditor
+dependencies[] = every_field
+dependencies[] = field_formatter_editable
