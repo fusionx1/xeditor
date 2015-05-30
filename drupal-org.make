@@ -13,14 +13,14 @@ projects[responsive_bartik][version] = 1.x-dev
 projects[responsive_bartik][subdir] = contrib
 
 projects[ctools][type] = module
-projects[ctools][version] = 1.3
+projects[ctools][version] = 1.7
 projects[ctools][subdir] = contrib
 ; Adding a renderable-array block to a page gives errors in the admin UI.
 ; @todo remove with ctools upgrade to 1.4.
 projects[ctools][patch][1925018] = "http://drupal.org/files/ctools-1925018-61.patch"
 
 projects[entity][type] = module
-projects[entity][version] = 1.3
+projects[entity][version] = 1.6
 projects[entity][subdir] = contrib
 
 projects[jquery_update][type] = module
@@ -52,12 +52,12 @@ projects[picture][version] = 1.2
 projects[picture][subdir] = contrib
 
 projects[views][type] = module
-projects[views][version] = 3.7
+projects[views][version] = 3.11
 projects[views][subdir] = contrib
 
 ; Contributed projects; Sparkish.
 projects[ckeditor][type] = module
-projects[ckeditor][version] = 1.13
+projects[ckeditor][version] = 1.16
 projects[ckeditor][subdir] = contrib
 
 projects[breakpoints][type] = module
@@ -116,7 +116,7 @@ projects[workbench][version] = 1.2
 projects[workbench][subdir] = contrib
 
 projects[video][type] = module
-projects[video][version] = 2.10
+projects[video][version] = 2.11
 projects[video][subdir] = contrib
 
 projects[token][type] = module
