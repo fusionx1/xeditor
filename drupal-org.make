@@ -112,58 +112,58 @@ projects[simplified_menu_admin][subdir] = contrib
 
 ; Added other contrib modules
 projects[workbench][type] = module
-projects[workbench][version] = 7.x-1.2
+projects[workbench][version] = 1.2
 projects[workbench][subdir] = contrib
 
 projects[video][type] = module
-projects[video][version] = 7.x-2.10
+projects[video][version] = 2.10
 projects[video][subdir] = contrib
 
 projects[token][type] = module
-projects[token][version] = 7.x-1.5
+projects[token][version] = 1.5
 projects[token][subdir] = contrib
 
 projects[pathauto][type] = module
-projects[pathauto][version] = 7.x-1.2
+projects[pathauto][version] = 1.2
 projects[pathauto][subdir] = contrib
 
 projects[multiupload_filefield_widget][type] = module
-projects[multiupload_filefield_widget][version] = 7.x-1.13
+projects[multiupload_filefield_widget][version] = 1.13
 projects[multiupload_filefield_widget][subdir] = contrib
 
 projects[metatag][type] = module
-projects[metatag][version] = 7.x-1.0-beta9
+projects[metatag][version] = 1.0-beta9
 projects[metatag][subdir] = contrib
 
 projects[insert][type] = module
-projects[insert][version] = 7.x-1.3
+projects[insert][version] = 1.3
 projects[insert][subdir] = contrib
 
 
 projects[floating_block][type] = module
-projects[floating_block][version] = 7.x-1.2
+projects[floating_block][version] = 1.2
 projects[floating_block][subdir] = contrib
 
 projects[field_formatter_settings][type] = module
-projects[field_formatter_settings][version] = 7.x-1.1
+projects[field_formatter_settings][version] = 1.1
 projects[field_formatter_settings][subdir] = contrib
 
 projects[dragndrop_upload][type] = module
-projects[dragndrop_upload][version] = 7.x-1.0-alpha2
+projects[dragndrop_upload][version] = 1.0-alpha2
 projects[dragndrop_upload][subdir] = contrib
 
 
 projects[draggableviews][type] = module
-projects[draggableviews][version] = 7.x-2.0
+projects[draggableviews][version] = 2.0
 projects[draggableviews][subdir] = contrib
 
 projects[diff][type] = module
-projects[diff][version] = 7.x-3.2
+projects[diff][version] = 3.2
 projects[diff][subdir] = contrib
 
 
 projects[back_to_top][type] = module
-projects[back_to_top][version] = 7.x-1.4
+projects[back_to_top][version] = 1.4
 projects[back_to_top][subdir] = contrib
 
 ; Libraries.
