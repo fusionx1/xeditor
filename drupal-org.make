@@ -103,7 +103,7 @@ projects[responsive_preview][subdir] = contrib
 
 ; Contributed modules; UX++
 projects[module_filter][type] = module
-projects[module_filter][version] = 1.8
+projects[module_filter][version] = 2.0
 projects[module_filter][subdir] = contrib
 
 projects[simplified_menu_admin][type] = module
